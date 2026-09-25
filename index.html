@@ -192,6 +192,9 @@
   .foot a:hover{border-color:var(--text)}
   .foot a svg{width:14px;height:14px;color:var(--text)}
   .src{font-size:13px;color:var(--muted);margin-top:12px}
+  .backup{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 8px;justify-content:center;align-items:center;margin-top:14px}
+  .bk{font-size:13px;font-weight:600;padding:4px 12px;border-radius:999px;border:1px solid var(--border-hi);transition:border-color .2s}
+  .bk:hover{border-color:var(--text)}
 
   /* ================= EFECTOS ================= */
   #fx{position:fixed;inset:0;pointer-events:none;z-index:60}
@@ -273,16 +276,18 @@
   .tstate .here-tag{color:var(--text);font-weight:700}
   .row.flash{animation:flash 1.4s ease-out}
   @keyframes flash{0%,30%{background:color-mix(in srgb,var(--phase) 24%,var(--surface))}}
-  .here-link{display:flex;align-items:center;gap:8px;width:100%;margin-top:12px;padding:8px 10px;border-radius:10px;
+  .here-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:6px;margin-top:12px}
+  .here-list[hidden]{display:none}
+  .here-link{display:flex;align-items:center;gap:8px;width:100%;padding:8px 10px;border-radius:10px;
     font-size:13px;color:var(--text);background:var(--acc-soft);border:1px solid color-mix(in srgb,var(--acc) 35%,transparent);text-align:left;transition:border-color .2s}
   .here-link[hidden]{display:none}
   .here-link:hover{border-color:var(--acc)}
   .here-link svg{width:15px;height:15px;flex:none;color:var(--acc-ink)}
   .here-link svg path{fill:currentColor}
-  .t-here{position:absolute;top:10px;right:10px;display:none;color:var(--blk-ink)}
+  .t-here{position:absolute;top:10px;right:10px;display:none;align-items:center;gap:2px;color:var(--blk-ink);font-size:12px;font-weight:700;font-variant-numeric:tabular-nums}
   .t-here svg{width:18px;height:18px;display:block}
   .t-here svg path{fill:currentColor}
-  .tab.has-here .t-here{display:block}
+  .tab.has-here .t-here{display:flex}
   .p-hint{display:flex;align-items:center;gap:6px;margin-top:14px;font-size:13px;color:var(--muted)}
   .p-hint svg{width:14px;height:14px;flex:none}
 
@@ -441,6 +446,12 @@
     <span>© <span id="year"></span> OposiTAI · Web creada por</span>
     <a href="https://github.com/ATKLA" target="_blank" rel="noopener noreferrer" aria-label="ATKLA en GitHub"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span><span class="brace">{</span><span class="grad">ATKLA</span><span class="brace">}</span></span></a>
   </div>
+  <div class="backup">
+    <span>El progreso se guarda solo en este navegador.</span>
+    <button type="button" class="bk" id="bkExport">Exportar copia</button>
+    <button type="button" class="bk" id="bkImport">Importar copia</button>
+    <input type="file" id="bkFile" accept="application/json,.json" hidden>
+  </div>
 </footer>
 <script>
 const CARDS="simple";
@@ -501,18 +512,20 @@ const RES = {k:"r", name:"Resúmenes"};
 
 /* ================= ALMACENAMIENTO ================= */
 const KEY="tai2026-progress-v1", UI_KEY="tai2026-ui-v5", START_KEY="tai2026-start";
+const HERE_KEY="tai2026-here-v2", HERE_OLD_KEY="tai2026-here", DL_KEY="tai2026-deadlines";
+const ISO=/^\d{4}-\d{2}-\d{2}$/;
+const isISO=v=>typeof v==="string"&&ISO.test(v);
 function load(k,d){ try{ const v=localStorage.getItem(k); return v==null?d:JSON.parse(v); }catch(e){ return d; } }
 function store(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){} }
 
 /* fechas límite editables (se guardan en este navegador) */
-const HERE_KEY="tai2026-here";
-let here=null;
-const DL_KEY="tai2026-deadlines";
-(function(){
-  const s=load(DL_KEY,{}), ok=v=>typeof v==="string"&&/^\d{4}-\d{2}-\d{2}$/.test(v);
-  const a=ok(s.a)?s.a:PHASES[0].deadline, b=ok(s.b)?s.b:PHASES[1].deadline;
-  if(a<b){ PHASES[0].deadline=a; PHASES[1].deadline=b; }
-})();
+const DEFAULT_DL=PHASES.map(p=>p.deadline);
+function loadDeadlines(){
+  const s=load(DL_KEY,{})||{};
+  const a=isISO(s.a)?s.a:DEFAULT_DL[0], b=isISO(s.b)?s.b:DEFAULT_DL[1];
+  [PHASES[0].deadline,PHASES[1].deadline] = a<b ? [a,b] : DEFAULT_DL;
+}
+loadDeadlines();
 
 /* ================= FECHAS ================= */
 const pad=n=>String(n).padStart(2,"0");
@@ -531,31 +544,64 @@ const n1=x=>x.toFixed(1).replace(".",",").replace(",0","");
    state[id] = { a:bool 1ª lectura, b:bool 2ª lectura, r:bool resumen, da, db, dr: fechas } */
 function normalize(raw){
   const out={};
-  for(const [id,v] of Object.entries(raw||{})){
+  if(!raw||typeof raw!=="object") return out;
+  for(const [id,v] of Object.entries(raw)){
     let s={a:false,b:false,r:false,da:null,db:null,dr:null};
     if(typeof v==="number"){ s.a=v>=1; s.b=v>=2; s.r=v>=3; }
-    else if(v && ("a" in v || "b" in v)){ Object.assign(s,v); }
-    else if(v){
+    else if(v && typeof v==="object" && ("a" in v || "b" in v || "r" in v)){ Object.assign(s,v); }
+    else if(v && typeof v==="object"){
       const l=v.l||0, d=Array.isArray(v.d)?v.d:[];
       s.a=l>=1; s.b=l>=2; s.da=d[0]||null; s.db=d[1]||null;
       s.r=!!v.r||l>=3; s.dr=v.rd||d[2]||null;
     }
+    /* solo booleanos y fechas AAAA-MM-DD; la 2ª lectura implica la 1ª */
+    s={a:!!s.a||!!s.b,b:!!s.b,r:!!s.r,da:isISO(s.da)?s.da:null,db:isISO(s.db)?s.db:null,dr:isISO(s.dr)?s.dr:null};
     if(s.a||s.b||s.r) out[id]=s;
   }
   return out;
 }
 let state=normalize(load(KEY,{}));
-here=(()=>{const h=load(HERE_KEY,null); if(!h||typeof h.id!=="string") return null;
-  const [bid,n]=h.id.split("-"); const blk=DATA.find(b=>b.id===bid);
-  return blk&&+n>=1&&+n<=blk.temas.length?h:null;})();
-const hereInfo=()=>{ if(!here) return null; const [bid,n]=here.id.split("-"); const blk=DATA.find(b=>b.id===bid); return {blk,n:+n}; };
-function setHere(id){
-  here = id&&(!here||here.id!==id) ? {id,since:toISO(today())} : null;
-  store(HERE_KEY,here); update();
+
+/* "vas por aquí": una marca por bloque → here = { b1:{n:2,since:"AAAA-MM-DD"}, b4:{n:7,since:…} } */
+function normHere(raw){
+  const out={};
+  if(!raw||typeof raw!=="object") return out;
+  DATA.forEach(b=>{
+    const h=raw[b.id]; if(!h||typeof h!=="object") return;
+    const n=Number(h.n);
+    if(Number.isInteger(n)&&n>=1&&n<=b.temas.length) out[b.id]={n,since:isISO(h.since)?h.since:toISO(today())};
+  });
+  return out;
 }
+function loadHere(){
+  let raw=load(HERE_KEY,null); if(!raw||typeof raw!=="object") raw={};
+  /* migración desde la marca única antigua {id:"b1-2",since} */
+  const old=load(HERE_OLD_KEY,null);
+  if(old&&typeof old.id==="string"){ const [bid,n]=old.id.split("-"); if(!raw[bid]) raw[bid]={n:+n,since:old.since}; }
+  try{ localStorage.removeItem(HERE_OLD_KEY); }catch(e){}
+  return normHere(raw);
+}
+let here=loadHere();
+const hereOf=id=>{ const [bid,n]=id.split("-"); const h=here[bid]; return h&&h.n===+n?h:null; };
+function setHere(id){
+  const [bid,n]=id.split("-");
+  const on=!hereOf(id);
+  if(on) here[bid]={n:+n,since:toISO(today())}; else delete here[bid];
+  store(HERE_KEY,here); update();
+  return on;
+}
+function loadStart(){ const s=load(START_KEY,null); return isISO(s)?s:toISO(today()); }
 let ui=load(UI_KEY,{tab:"b1"});
-let start=load(START_KEY,null)||toISO(today());
-store(START_KEY,start); store(KEY,state);
+let start=loadStart();
+store(START_KEY,start); store(KEY,state); store(HERE_KEY,here);
+
+/* recarga todo desde localStorage (otra pestaña abierta o importación) */
+function reloadFromStorage(){
+  state=normalize(load(KEY,{}));
+  here=normHere(load(HERE_KEY,{}));
+  start=loadStart();
+  loadDeadlines();
+}
 
 const get=id=>state[id]||{a:false,b:false,r:false,da:null,db:null,dr:null};
 function save(id,s){ if(!s.a&&!s.b&&!s.r) delete state[id]; else state[id]=s; store(KEY,state); }
@@ -572,7 +618,8 @@ function phaseInfo(p,i){
   const done=count(p.k), left=TOTAL-done;
   const span=Math.max(days(from,to),1);
   const t=Math.min(Math.max(days(from,now)/span,0),1);
-  const expected=Math.ceil(TOTAL*t);
+  /* floor: días completos transcurridos × ritmo; con ceil ibas "por detrás" desde el segundo día */
+  const expected=Math.floor(TOTAL*t);
   const dLeft=days(now,to);
   let status,cls;
   if(left===0){status="Completado";cls="ok";}
@@ -660,7 +707,7 @@ function simpleCard(k,title,withMark){
         ${withMark?`<i class="mark" id="wk-${k}"></i>`:""}
       </div>
       ${withMark?`<div class="mark-row"><span class="mark-l" id="wkl-${k}"></span></div>
-      <button type="button" class="here-link" id="wh-${k}" hidden></button>`:""}
+      <div class="here-list" id="wh-${k}" hidden></div>`:""}
       <div class="w-foot"><span class="chip" id="wc-${k}"><i></i><span></span></span><span class="w-pace" id="wp-${k}"></span></div>
     </article>`;
 }
@@ -705,7 +752,7 @@ function renderTabs(){
   const r=18,c=2*Math.PI*r;
   document.getElementById("tabs").innerHTML = DATA.map(b=>`
     <button class="tab" role="tab" id="tab-${b.id}" data-tab="${b.id}" data-roman="${b.roman}" aria-controls="temas">
-      <span class="t-here" aria-hidden="true" title="Vas por aquí">${ICON_BM}</span>
+      <span class="t-here" aria-hidden="true" title="Vas por aquí">${ICON_BM}<span class="t-here-n"></span></span>
       <div class="t-ring"><svg viewBox="0 0 46 46" aria-hidden="true">
         <circle class="bg" cx="23" cy="23" r="${r}" stroke-width="5"/>
         <circle class="fg" id="tr-${b.id}" cx="23" cy="23" r="${r}" stroke-width="5" stroke-dasharray="${c}" stroke-dashoffset="${c}" data-c="${c}"/>
@@ -725,6 +772,7 @@ function renderPanel(){
   const b=DATA.find(x=>x.id===ui.tab)||DATA[0];
   const panel=document.getElementById("temas");
   panel.dataset.block=b.id;
+  panel.setAttribute("aria-labelledby",`tab-${b.id}`);
   panel.innerHTML=`
     <div class="p-head" data-roman="${b.roman}">
       <div class="p-tag">Bloque ${b.roman} · ${b.temas.length} temas</div>
@@ -734,7 +782,7 @@ function renderPanel(){
         <div class="p-stat" data-k="b"><small>2ª lectura</small><b id="ps-b"></b><div class="mini"><i id="pm-b"></i></div></div>
         <div class="p-stat" data-k="r"><small>Resúmenes</small><b id="ps-r"></b><div class="mini"><i id="pm-r"></i></div></div>
       </div>
-      <p class="p-hint">${ICON_BM}<span>Pulsa el número de un tema para marcar por dónde vas.</span></p>
+      <p class="p-hint">${ICON_BM}<span>Pulsa el número de un tema para marcar por dónde vas en este bloque.</span></p>
     </div>
     <div class="thead" aria-hidden="true"><span>#</span><span>Tema</span><span>1ª lectura</span><span>2ª lectura</span><span>Resumen</span></div>
     <ul class="list">
@@ -764,9 +812,9 @@ function countTo(el,to){
   (function step(t){ const k=Math.min((t-t0)/dur,1),e=1-Math.pow(1-k,3); el.textContent=Math.round(from+(to-from)*e); if(k<1) requestAnimationFrame(step); })(t0);
 }
 
-function stateHTML(s,isHere){
+function stateHTML(s,h){
   const out=[];
-  if(isHere) out.push(`<span class="here-tag"><i style="background:var(--phase)"></i>Vas por aquí · desde el ${fmt(fromISO(here.since))}</span>`);
+  if(h) out.push(`<span class="here-tag"><i style="background:var(--phase)"></i>Vas por aquí · desde el ${fmt(fromISO(h.since))}</span>`);
   if(!s.a&&!s.b&&!s.r) return out.length?out.join(""):`<span>Pendiente</span>`;
   if(s.a) out.push(`<span><i style="background:var(--c-a)"></i>1ª${s.da?" · "+fmt(fromISO(s.da)):""}</span>`);
   if(s.b) out.push(`<span><i style="background:var(--c-b)"></i>2ª${s.db?" · "+fmt(fromISO(s.db)):""}</span>`);
@@ -796,8 +844,8 @@ function updateSimple(infos,activeIdx){
       : `Hasta el ${fmt(f.to)} · <b>${dl} ${dl===1?"día":"días"}</b>`;
     countTo(document.getElementById(`wn-${p.k}`),f.done);
     document.getElementById(`wf-${p.k}`).style.width=(f.done/TOTAL*100)+"%";
-    document.getElementById(`wbar-${p.k}`).setAttribute("aria-label",`${f.done} de ${TOTAL} temas`+(f.started&&f.left>0?`; hoy deberías llevar ${f.expected}`:""));
-    const showMark=f.started&&f.left>0&&f.t>0&&f.t<1;
+    const showMark=f.started&&f.left>0&&f.t>0&&f.t<1&&f.expected>0;
+    document.getElementById(`wbar-${p.k}`).setAttribute("aria-label",`${f.done} de ${TOTAL} temas`+(showMark?`; hoy deberías llevar ${f.expected}`:""));
     const pos=f.expected/TOTAL*100;
     const mk=document.getElementById(`wk-${p.k}`), ml=document.getElementById(`wkl-${p.k}`);
     mk.style.display=ml.style.display=showMark?"":"none";
@@ -806,9 +854,12 @@ function updateSimple(infos,activeIdx){
     ml.style.transform=`translateX(${pos<25?"-6px":pos>75?"calc(-100% + 6px)":"-50%"})`;
     ml.textContent=`Hoy deberías llevar ${f.expected}`;
     const chip=document.getElementById(`wc-${p.k}`); chip.className=`chip ${f.cls}`; chip.querySelector("span").textContent=f.status;
-    const hl=document.getElementById(`wh-${p.k}`), hi=hereInfo();
-    hl.hidden=!(hi&&i===activeIdx);
-    if(hi&&i===activeIdx){ hl.dataset.goto=here.id; hl.innerHTML=`${ICON_BM}<span>Vas por el <b>tema ${hi.n}</b> · Bloque ${hi.blk.roman}</span>`; hl.setAttribute("aria-label",`Ir al tema ${hi.n} del bloque ${hi.blk.roman}, por donde vas`); }
+    const hl=document.getElementById(`wh-${p.k}`), marks=DATA.filter(b=>here[b.id]);
+    const showHere=i===activeIdx&&marks.length>0;
+    hl.hidden=!showHere;
+    hl.innerHTML = showHere ? marks.map(b=>{ const n=here[b.id].n;
+      return `<button type="button" class="here-link" data-goto="${b.id}-${n}" aria-label="Ir al tema ${n} del bloque ${b.roman}, por donde vas">${ICON_BM}<span>Bloque ${b.roman} · <b>tema ${n}</b></span></button>`;
+    }).join("") : "";
     document.getElementById(`wp-${p.k}`).innerHTML = f.left===0 ? "" : f.dLeft<0 ? `Faltan <b>${f.left}</b>` : `<b>${n1(f.pace)}</b> ${n1(f.pace)==="1"?"tema":"temas"}/semana`;
   });
   const rDone=count("r");
@@ -877,8 +928,10 @@ function update(){
   DATA.forEach(b=>{
     const len=b.temas.length,c=count(k,b);
     const r=document.getElementById(`tr-${b.id}`); r.style.strokeDashoffset=r.dataset.c*(1-c/len);
-    document.getElementById(`tc-${b.id}`).textContent=`${c}/${len} leídos · ${count("r",b)} res.`;
-    document.getElementById(`tab-${b.id}`).classList.toggle("has-here",!!here&&here.id.startsWith(b.id+"-"));
+    const h=here[b.id], tab=document.getElementById(`tab-${b.id}`);
+    document.getElementById(`tc-${b.id}`).innerHTML=`${c}/${len} leídos · ${count("r",b)} res.`+(h?`<span class="sr">, vas por el tema ${h.n}</span>`:"");
+    tab.classList.toggle("has-here",!!h);
+    tab.querySelector(".t-here-n").textContent=h?h.n:"";
   });
 
   const b=DATA.find(x=>x.id===ui.tab)||DATA[0], len=b.temas.length;
@@ -891,12 +944,12 @@ function update(){
     const id=`${b.id}-${i+1}`, s=get(id), row=document.getElementById(`row-${id}`);
     row.classList.toggle("ra",s.a&&!s.b);
     row.classList.toggle("rb",s.b);
-    const isHere=!!here&&here.id===id;
+    const h=hereOf(id), isHere=!!h;
     row.classList.toggle("here",isHere);
     const nb=row.querySelector(".num"); nb.setAttribute("aria-pressed",isHere);
     nb.setAttribute("aria-label",`Tema ${i+1}: ${isHere?"quitar marca de por dónde vas":"marcar por dónde vas"}`);
     nb.title=isHere?"Quitar marca":"Marcar por dónde vas";
-    row.querySelector(".tstate").innerHTML=stateHTML(s,isHere);
+    row.querySelector(".tstate").innerHTML=stateHTML(s,h);
     row.querySelectorAll(".tg").forEach(t=>{ const on=!!s[t.dataset.k]; t.classList.toggle("on",on); t.setAttribute("aria-pressed",on); });
   });
 }
@@ -936,8 +989,9 @@ function toast(msg){ const t=document.getElementById("toast"); t.textContent=msg
 document.addEventListener("click",e=>{
   const ed=e.target.closest("[data-edit]"); if(ed){ openDL(ed.dataset.edit); return; }
   const hb=e.target.closest("[data-here]");
-  if(hb){ const id=hb.dataset.here, was=here&&here.id===id; setHere(id);
-    toast(was?"Marca quitada":`Marcado: vas por el tema ${id.split("-")[1]}`); return; }
+  if(hb){ const id=hb.dataset.here, [bid,n]=id.split("-"), blk=DATA.find(b=>b.id===bid);
+    const on=setHere(id);
+    toast(on?`Bloque ${blk.roman}: vas por el tema ${n}`:`Bloque ${blk.roman}: marca quitada`); return; }
   const go=e.target.closest("[data-goto]");
   if(go){ const id=go.dataset.goto; ui.tab=id.split("-")[0]; store(UI_KEY,ui); renderPanel();
     const row=document.getElementById(`row-${id}`);
@@ -952,16 +1006,19 @@ document.addEventListener("click",e=>{
     const before={blk:count(k,blk),all:count(k)};
     s[k]=!s[k]; s["d"+k]=s[k]?toISO(today()):null;
     if(k==="b"&&s.b&&!s.a){ s.a=true; s.da=s.da||toISO(today()); }  // marcar 2ª marca también la 1ª
+    const cascade=k==="a"&&!s.a&&s.b;                                // desmarcar 1ª desmarca también la 2ª
+    if(cascade){ s.b=false; s.db=null; }
     save(id,s);
-    /* si terminas de leer el tema que tenías marcado, la marca se quita sola */
+    /* si terminas de leer el tema que tenías marcado, la marca de ese bloque se quita sola */
     let cleared=false;
-    if(s[k]&&k!=="r"&&here&&here.id===id){ here=null; store(HERE_KEY,null); cleared=true; }
+    if(s[k]&&k!=="r"&&hereOf(id)){ delete here[blk.id]; store(HERE_KEY,here); cleared=true; }
     update();
+    if(cascade) toast(`Tema ${id.split("-")[1]}: quitadas la 1ª y la 2ª lectura`);
     if(s[k]){
       const r=t.getBoundingClientRect();
       burst(r.left+r.width/2,r.top+r.height/2,THEME[k]);
       const name=k==="r"?"resúmenes":PHASES.find(p=>p.k===k).name;
-      if(cleared) toast(`Tema ${id.split("-")[1]} leído: marca de "vas por aquí" quitada`);
+      if(cleared) toast(`Bloque ${blk.roman}, tema ${id.split("-")[1]} leído: marca de "vas por aquí" quitada`);
       if(count(k)===TOTAL&&before.all<TOTAL){confetti();toast(k==="r"?"Todos los resúmenes hechos":`${name} del temario completa`);}
       else if(count(k,blk)===len&&before.blk<len){confetti();toast(`Bloque ${blk.roman}: ${name} ${k==="r"?"completos":"completa"}`);}
     }
@@ -990,6 +1047,39 @@ function paintDate(){
   document.getElementById("year").textContent=d.getFullYear();
 }
 document.addEventListener("visibilitychange",()=>{ if(!document.hidden){ paintDate(); update(); } });
+
+/* otra pestaña con la app abierta cambió datos: recargar para no pisarlos al guardar */
+addEventListener("storage",e=>{
+  if(e.key!==null&&![KEY,HERE_KEY,DL_KEY,START_KEY].includes(e.key)) return;
+  reloadFromStorage(); update();
+});
+
+/* ================= COPIA DE SEGURIDAD ================= */
+function exportData(){
+  const data={app:"OposiTAI",v:1,exported:new Date().toISOString(),
+    progress:state,here,deadlines:{a:PHASES[0].deadline,b:PHASES[1].deadline},start};
+  const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));
+  const a=document.createElement("a"); a.href=url; a.download=`opositai-${toISO(today())}.json`;
+  document.body.append(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000);
+  toast("Copia descargada");
+}
+function importData(file){
+  const rd=new FileReader();
+  rd.onload=()=>{
+    let d; try{ d=JSON.parse(rd.result); }catch(e){ toast("El archivo no es una copia válida"); return; }
+    if(!d||d.app!=="OposiTAI"||!d.progress||typeof d.progress!=="object"){ toast("El archivo no es una copia de OposiTAI"); return; }
+    if(!confirm("Se sustituirá el progreso de este navegador por el de la copia. ¿Continuar?")) return;
+    store(KEY,normalize(d.progress)); store(HERE_KEY,normHere(d.here));
+    if(d.deadlines&&isISO(d.deadlines.a)&&isISO(d.deadlines.b)&&d.deadlines.a<d.deadlines.b) store(DL_KEY,{a:d.deadlines.a,b:d.deadlines.b});
+    if(isISO(d.start)) store(START_KEY,d.start);
+    reloadFromStorage(); update(); toast("Copia restaurada");
+  };
+  rd.onerror=()=>toast("No se pudo leer el archivo");
+  rd.readAsText(file);
+}
+document.getElementById("bkExport").addEventListener("click",exportData);
+document.getElementById("bkImport").addEventListener("click",()=>document.getElementById("bkFile").click());
+document.getElementById("bkFile").addEventListener("change",e=>{ const f=e.target.files[0]; if(f) importData(f); e.target.value=""; });
 
 paintDate(); renderWidgets(); renderTabs(); renderPanel();
 
