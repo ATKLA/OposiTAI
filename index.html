@@ -19,6 +19,7 @@
     --c-a:#7c3aed;--c-a-ink:#6d28d9;--on-a:#ffffff;--soft-a:#efe9fe;
     --c-b:#c2410c;--c-b-ink:#c2410c;--on-b:#ffffff;--soft-b:#fef1e8;
     --c-r:#fbbf24;--c-r-ink:#92400e;--on-r:#3b2604;--soft-r:#fdf1c7;
+    --row-a:#eeeaf6;--row-a-hi:#e6e0f2;--row-b:#f3e9e2;--row-b-hi:#ede0d6;
     --ok:#16a34a;--warn:#d97706;--bad:#dc2626;
     --shadow:0 1px 2px rgba(24,24,27,.05),0 4px 14px -6px rgba(76,29,149,.10);
     --b1-soft:#e7f6ed;--b1-ink:#166534;--b2-soft:#fdefe3;--b2-ink:#9a4508;
@@ -36,6 +37,7 @@
     --c-a:#a78bfa;--c-a-ink:#c4b5fd;--on-a:#1a1033;--soft-a:rgba(167,139,250,.16);
     --c-b:#ff7a45;--c-b-ink:#ffa07a;--on-b:#2a0f02;--soft-b:rgba(255,122,69,.15);
     --c-r:#fbbf24;--c-r-ink:#fcd34d;--on-r:#2a1c00;--soft-r:rgba(251,191,36,.14);
+    --row-a:#17151d;--row-a-hi:#1c1a24;--row-b:#1a1614;--row-b-hi:#201b18;
     --ok:#34d399;--warn:#fbbf24;--bad:#f87171;
     --shadow:0 1px 0 rgba(255,255,255,.04) inset,0 8px 24px -12px rgba(0,0,0,.6);
     --b1-soft:#17301f;--b1-ink:#86efac;--b2-soft:#33240f;--b2-ink:#fdba74;
@@ -48,6 +50,7 @@
     --c-a:#a78bfa;--c-a-ink:#c4b5fd;--on-a:#1a1033;--soft-a:rgba(167,139,250,.16);
     --c-b:#ff7a45;--c-b-ink:#ffa07a;--on-b:#2a0f02;--soft-b:rgba(255,122,69,.15);
     --c-r:#fbbf24;--c-r-ink:#fcd34d;--on-r:#2a1c00;--soft-r:rgba(251,191,36,.14);
+    --row-a:#17151d;--row-a-hi:#1c1a24;--row-b:#1a1614;--row-b-hi:#201b18;
     --ok:#34d399;--warn:#fbbf24;--bad:#f87171;
     --shadow:0 1px 0 rgba(255,255,255,.04) inset,0 8px 24px -12px rgba(0,0,0,.6);
     --b1-soft:#17301f;--b1-ink:#86efac;--b2-soft:#33240f;--b2-ink:#fdba74;
@@ -161,6 +164,11 @@
   .num{width:36px;height:36px;border-radius:10px;flex:none;display:grid;place-items:center;font-size:14px;font-weight:700;color:var(--muted);background:var(--surface-2);font-variant-numeric:tabular-nums;transition:background .25s,color .25s}
   .row.ra .num{background:var(--soft-a);color:var(--c-a-ink)}
   .row.rb .num{background:var(--soft-b);color:var(--c-b-ink)}
+  /* tema leído: la fila se oscurece un tono (violeta tras la 1ª lectura, cálido tras la 2ª) */
+  .row.ra{background:var(--row-a)}
+  .row.ra:hover{background:var(--row-a-hi)}
+  .row.rb{background:var(--row-b)}
+  .row.rb:hover{background:var(--row-b-hi)}
   .ttext{flex:1;min-width:0}
   .ttitle{font-size:16px;line-height:1.45;font-weight:500;overflow-wrap:anywhere}
   .tstate{font-size:13px;color:var(--muted);margin-top:4px;display:flex;gap:4px 14px;flex-wrap:wrap}

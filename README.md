@@ -9,7 +9,7 @@ Una sola página HTML, sin dependencias ni proceso de build. El progreso se guar
 ## Funcionalidades
 
 - **Índice de temas**: los títulos de los 33 temas de la convocatoria, agrupados en sus 4 bloques (Organización del Estado, Tecnología básica, Desarrollo de sistemas, Sistemas y comunicaciones), como lista sobre la que marcar el avance.
-- **Tres pasos por tema**: 1ª lectura, resumen y 2ª lectura (del resumen). La 1ª lectura y el resumen son independientes; la 2ª lectura requiere el resumen, así que marcarla marca el resumen y quitar el resumen quita la 2ª. Cada marca guarda la fecha en que se hizo.
+- **Tres pasos por tema**: 1ª lectura, resumen y 2ª lectura (del resumen). La 1ª lectura y el resumen son independientes; la 2ª lectura requiere el resumen, así que marcarla marca el resumen y quitar el resumen quita la 2ª. Cada marca guarda la fecha en que se hizo. Un tema leído se oscurece un tono: violeta tras la 1ª lectura y cálido tras la 2ª.
 - **Material de cada tema**, bajo su título: número de páginas (se guarda al pulsar Intro o salir del campo) y dos marcas, **Digital** (tengo el temario digital) y **Fichas**, que solo se marcan o desmarcan. La cabecera de cada bloque suma las páginas anotadas y las leídas en 1ª lectura.
 - **Plazos en un panel con pestañas** (1ª lectura, Resúmenes, 2ª lectura), a todo el ancho:
   - **Lecturas**, en páginas: dos anillos concéntricos (fuera, páginas leídas; dentro, plazo consumido: si el de fuera va por delante, llegas), una frase que dice si al ritmo del plan (20 págs/día por defecto) llegas a la fecha límite y con cuánto margen o retraso, debajo lo que da tu ritmo real (en rojo si con él no llegas), y tres cifras: fecha de fin al ritmo del plan, tu ritmo real en págs/día frente al del plan y las págs/día necesarias para llegar justo. Debajo, las páginas leídas por semana (de lunes a domingo) de toda la fase, con la línea del plan (ritmo × 7). Si la fase aún no ha empezado: cuándo empieza, su duración y los días que necesitarás al ritmo del plan. Sin páginas anotadas, pide que las anotes.
@@ -48,6 +48,7 @@ Todo se edita dentro del `<script>` de `index.html`.
 | Títulos de temas y bloques | constante `DATA` |
 | Fechas límite por defecto | constante `PHASES` (`deadline` en formato `AAAA-MM-DD`) |
 | Ritmo del plan por defecto | constante `PPD` (20 págs/día) |
+| Tono de los temas leídos | variables CSS `--row-a`, `--row-b` (y `-hi` para el hover) en `:root` y en modo oscuro |
 | Colores de fase | variables CSS `--c-a`, `--c-b`, `--c-r` en `:root` (y sus equivalentes en modo oscuro) |
 | Degradados y confeti | constante `THEME` |
 
