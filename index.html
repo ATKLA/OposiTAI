@@ -185,6 +185,42 @@
   .tg.on .box{border-color:currentColor}
   .tg.on .box svg{opacity:1;transform:none}
 
+  /* ================= MATERIAL DEL TEMA ================= */
+  /* páginas, temario digital y fichas: datos del tema, no pasos de estudio */
+  .tmeta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:8px}
+  .pg{display:inline-flex;align-items:center;height:30px;padding:0 10px 0 2px;border-radius:8px;border:1px solid var(--border-hi);background:var(--surface);font-size:12px;font-weight:600;color:var(--muted);transition:border-color .2s}
+  .pg:hover{border-color:var(--blk-ink)}
+  .pg:focus-within{border-color:var(--blk-ink);outline:2px solid var(--focus);outline-offset:1px}
+  .pg input{width:50px;height:28px;border:0;background:transparent;color:var(--text);font:inherit;font-size:16px;font-weight:700;text-align:right;padding:0 5px 0 0;font-variant-numeric:tabular-nums;-moz-appearance:textfield;appearance:textfield}
+  .pg input::-webkit-inner-spin-button,.pg input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+  .pg input:focus-visible{outline:none}
+  .pg input::placeholder{color:var(--faint);font-weight:500}
+  .mt{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 11px 0 8px;border-radius:999px;border:1px solid var(--border-hi);background:var(--surface);font-size:12px;font-weight:600;color:var(--muted);transition:background .2s,color .2s,border-color .2s}
+  .mt svg{width:15px;height:15px;flex:none}
+  .mt .ck{display:none}
+  .mt:hover{border-color:var(--blk-ink);color:var(--text)}
+  .mt.on{background:color-mix(in srgb,var(--blk-ink) 13%,var(--surface));border-color:color-mix(in srgb,var(--blk-ink) 55%,transparent);color:var(--blk-ink)}
+  .mt.on .ic{display:none}
+  .mt.on .ck{display:block}
+  /* página por la que vas: solo en el tema marcado, con el color de la fase */
+  .hp{display:none;align-items:center;gap:6px;height:30px;padding:0 10px 0 8px;border-radius:8px;font-size:12px;font-weight:600;color:var(--text);
+    border:1px solid color-mix(in srgb,var(--phase) 55%,transparent);background:color-mix(in srgb,var(--phase) 10%,var(--surface))}
+  .row.here .hp{display:inline-flex}
+  .hp svg{width:14px;height:14px;flex:none;color:var(--phase)}
+  .hp svg path{fill:currentColor}
+  .hp:focus-within{outline:2px solid var(--focus);outline-offset:1px}
+  .hp input{width:44px;height:26px;border:0;border-radius:6px;background:var(--surface);color:var(--text);font:inherit;font-size:16px;font-weight:700;text-align:center;font-variant-numeric:tabular-nums;-moz-appearance:textfield;appearance:textfield}
+  .hp input::-webkit-inner-spin-button,.hp input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+  .hp input:focus-visible{outline:none}
+  .hp input::placeholder{color:var(--faint);font-weight:500}
+  .hp .hp-of{color:var(--muted)}
+  .hp .hp-of:empty{display:none}
+  .p-mat{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:14px;font-size:13px;color:var(--muted)}
+  .p-mat:empty{display:none}
+  .p-mat b{color:var(--text);font-weight:700;font-variant-numeric:tabular-nums}
+  .pz-pages{margin-top:14px;font-size:13px;color:var(--muted)}
+  .pz-pages b{color:var(--text);font-variant-numeric:tabular-nums}
+
   /* ================= FOOTER ================= */
   footer{margin-top:56px;padding:28px 16px 40px;border-top:1px solid var(--border);text-align:center}
   .foot{font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 10px;justify-content:center;align-items:center}
@@ -231,6 +267,11 @@
     .row{flex-wrap:wrap;gap:10px 12px;padding:12px 10px;align-items:flex-start}
     .ttext{flex:1 1 calc(100% - 52px);padding-top:6px}
     .acts{margin-left:48px}
+    .tmeta{gap:5px}
+    .pg{padding-right:8px}
+    .pg input{width:34px}
+    .mt{padding:0 9px 0 7px;gap:5px}
+    .mt svg{width:14px;height:14px}
     .tg{height:34px;font-size:13px;padding:0 10px 0 7px}
     .tg .lf{display:none}
   }
@@ -373,10 +414,21 @@
   .pz-h.ok em{color:var(--ok)} .pz-h.bad em{color:var(--bad)} .pz-h.warn em{color:var(--warn)}
   .pz-note{font-size:13px;color:var(--muted);margin-top:6px}
   .pz-note:empty{display:none}
+  .pz-note.bad{color:var(--bad);font-weight:600} .pz-note.ok{color:var(--ok);font-weight:600}
   .pz-dl{display:flex;align-items:center;gap:2px;font-size:13px;color:var(--muted);padding:4px 4px 4px 12px;border-radius:999px;background:var(--surface-2)}
   .pz-dl[hidden]{display:none}
   .pz-dl b{color:var(--text);margin-left:4px}
   .pz-dl .edit{width:28px;height:28px;border-radius:999px}
+  /* fecha límite y ritmo del plan, apilados a la derecha del titular */
+  .pz-ctl{display:flex;flex-direction:column;align-items:stretch;gap:6px}
+  .pz-ctl .pz-dl{justify-content:space-between}
+  .pz-ctl .dl-form{justify-content:flex-end;margin-top:0}
+  .pp-in{display:inline-flex;align-items:center;gap:6px;height:34px;padding:0 10px 0 0;border-radius:8px;border:1px solid var(--ctl);background:var(--surface);font-size:13px;color:var(--muted)}
+  .pp-in:focus-within{outline:2px solid var(--acc);outline-offset:1px}
+  .dl-form .pp-in input{flex:none;width:64px;max-width:none;height:32px;border:0;text-align:right;font-weight:700;font-size:16px;-moz-appearance:textfield;appearance:textfield}
+  .dl-form .pp-in input:focus-visible{outline:none}
+  .pp-in input::-webkit-inner-spin-button,.pp-in input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+  @media (max-width:640px){ .pz-ctl{flex-direction:row;flex-wrap:wrap;align-items:center} .pz-ctl .dl-form{justify-content:flex-start} }
   /* anillos */
   .rings{position:relative;width:196px;height:196px;flex:none}
   .rings svg{width:100%;height:100%;transform:rotate(-90deg);overflow:visible}
@@ -627,10 +679,14 @@ const PHASES = [
   {k:"b", name:"2ª lectura", deadline:"2027-04-30"}
 ];
 const RES = {k:"r", name:"Resúmenes"};
+/* ritmo previsto para las lecturas: páginas al día de media. Es el valor por defecto; el que
+   elijas desde la pestaña de cada lectura se guarda en este navegador y tiene prioridad. */
+const PPD = 20;
+const PPD_MAX = 500;
 
 /* ================= ALMACENAMIENTO ================= */
 const KEY="tai2026-progress-v1", UI_KEY="tai2026-ui-v5", START_KEY="tai2026-start";
-const HERE_KEY="tai2026-here-v2", HERE_OLD_KEY="tai2026-here", DL_KEY="tai2026-deadlines";
+const HERE_KEY="tai2026-here-v2", HERE_OLD_KEY="tai2026-here", DL_KEY="tai2026-deadlines", PACE_KEY="tai2026-pace";
 const ISO=/^\d{4}-\d{2}-\d{2}$/;
 const isISO=v=>typeof v==="string"&&ISO.test(v);
 function load(k,d){ try{ const v=localStorage.getItem(k); return v==null?d:JSON.parse(v); }catch(e){ return d; } }
@@ -644,6 +700,12 @@ function loadDeadlines(){
   [PHASES[0].deadline,PHASES[1].deadline] = a<b ? [a,b] : DEFAULT_DL;
 }
 loadDeadlines();
+
+/* ritmo del plan por fase: { a: págs/día, b: págs/día } */
+const toPace=v=>{ const n=Math.round(Number(v)); return Number.isFinite(n)&&n>=1&&n<=PPD_MAX?n:null; };
+let pace={a:PPD,b:PPD};
+function loadPace(){ const s=load(PACE_KEY,{})||{}; pace={a:toPace(s.a)||PPD,b:toPace(s.b)||PPD}; }
+loadPace();
 
 /* ================= FECHAS ================= */
 const pad=n=>String(n).padStart(2,"0");
@@ -659,35 +721,44 @@ function fmt(d){
 const n1=x=>x.toFixed(1).replace(".",",").replace(",0","");
 
 /* ================= ESTADO =================
-   state[id] = { a:bool 1ª lectura, b:bool 2ª lectura, r:bool resumen, da, db, dr: fechas } */
+   state[id] = { a:bool 1ª lectura, b:bool 2ª lectura, r:bool resumen, da, db, dr: fechas,
+                 pg: nº de páginas (entero o null), dig: tengo el temario digital, fch: tengo fichas } */
+const EMPTY={a:false,b:false,r:false,da:null,db:null,dr:null,pg:null,dig:false,fch:false};
+const isEmpty=s=>!s.a&&!s.b&&!s.r&&!s.pg&&!s.dig&&!s.fch;
+const toPages=v=>{ const n=Math.round(Number(v)); return Number.isFinite(n)&&n>0&&n<=9999?n:null; };
 function normalize(raw){
   const out={};
   if(!raw||typeof raw!=="object") return out;
   for(const [id,v] of Object.entries(raw)){
-    let s={a:false,b:false,r:false,da:null,db:null,dr:null};
+    let s={...EMPTY};
     if(typeof v==="number"){ s.a=v>=1; s.b=v>=2; s.r=v>=3; }
-    else if(v && typeof v==="object" && ("a" in v || "b" in v || "r" in v)){ Object.assign(s,v); }
+    else if(v && typeof v==="object" && ["a","b","r","pg","dig","fch"].some(k=>k in v)){ Object.assign(s,v); }
     else if(v && typeof v==="object"){
       const l=v.l||0, d=Array.isArray(v.d)?v.d:[];
       s.a=l>=1; s.b=l>=2; s.da=d[0]||null; s.db=d[1]||null;
       s.r=!!v.r||l>=3; s.dr=v.rd||d[2]||null;
     }
     /* solo booleanos y fechas AAAA-MM-DD; la 2ª lectura es del resumen, así que lo implica */
-    s={a:!!s.a,b:!!s.b,r:!!s.r||!!s.b,da:isISO(s.da)?s.da:null,db:isISO(s.db)?s.db:null,dr:isISO(s.dr)?s.dr:null};
-    if(s.a||s.b||s.r) out[id]=s;
+    s={a:!!s.a,b:!!s.b,r:!!s.r||!!s.b,da:isISO(s.da)?s.da:null,db:isISO(s.db)?s.db:null,dr:isISO(s.dr)?s.dr:null,
+       pg:toPages(s.pg),dig:!!s.dig,fch:!!s.fch};
+    if(!isEmpty(s)) out[id]=s;
   }
   return out;
 }
 let state=normalize(load(KEY,{}));
 
-/* "vas por aquí": una marca por bloque → here = { b1:{n:2,since:"AAAA-MM-DD"}, b4:{n:7,since:…} } */
+/* "vas por aquí": una marca por bloque → here = { b1:{n:2,since:"AAAA-MM-DD",pag:12,pd:"AAAA-MM-DD"}, … }
+   pag: página por la que vas de ese tema (opcional); pd: día en que la anotaste */
 function normHere(raw){
   const out={};
   if(!raw||typeof raw!=="object") return out;
   DATA.forEach(b=>{
     const h=raw[b.id]; if(!h||typeof h!=="object") return;
     const n=Number(h.n);
-    if(Number.isInteger(n)&&n>=1&&n<=b.temas.length) out[b.id]={n,since:isISO(h.since)?h.since:toISO(today())};
+    if(!(Number.isInteger(n)&&n>=1&&n<=b.temas.length)) return;
+    out[b.id]={n,since:isISO(h.since)?h.since:toISO(today())};
+    const pag=Math.round(Number(h.pag));
+    if(Number.isFinite(pag)&&pag>=1&&pag<=9999){ out[b.id].pag=pag; out[b.id].pd=isISO(h.pd)?h.pd:out[b.id].since; }
   });
   return out;
 }
@@ -719,42 +790,76 @@ function reloadFromStorage(){
   here=normHere(load(HERE_KEY,{}));
   start=loadStart();
   loadDeadlines();
+  loadPace();
 }
 
-const get=id=>state[id]||{a:false,b:false,r:false,da:null,db:null,dr:null};
-function save(id,s){ if(!s.a&&!s.b&&!s.r) delete state[id]; else state[id]=s; store(KEY,state); }
+const get=id=>state[id]||{...EMPTY};
+function save(id,s){ if(isEmpty(s)) delete state[id]; else state[id]=s; store(KEY,state); }
+const nf=n=>Math.round(n).toLocaleString("es-ES");
+
+/* ================= PÁGINAS =================
+   Los plazos de lectura se calculan en páginas, no en temas: un tema de 60 páginas no pesa lo
+   mismo que uno de 15. Los temas sin páginas anotadas cuentan con la media de los que sí las tienen. */
+function avgPages(){
+  let n=0,sum=0; DATA.forEach(b=>b.temas.forEach((_,i)=>{ const pg=get(`${b.id}-${i+1}`).pg; if(pg){n++;sum+=pg;} }));
+  return {known:n,missing:TOTAL-n,avg:n?sum/n:0};
+}
+const weightOf=(s,avg)=>s.pg||avg;
+/* páginas ya leídas de un tema a medias ("vas por aquí" con página). Cuentan en la lectura que
+   ese tema tiene pendiente: la 1ª si aún no está leído, la 2ª si ya lo está. Al marcar el tema
+   como leído, la marca se quita y pasa a contar el tema entero. */
+function partials(k){
+  const A=avgPages(), out=[];
+  DATA.forEach(b=>{ const h=here[b.id]; if(!h||!h.pag) return;
+    const s=get(`${b.id}-${h.n}`), ph=!s.a?"a":!s.b?"b":null; if(ph!==k) return;
+    out.push({d:fromISO(h.pd||h.since),w:Math.min(h.pag,weightOf(s,A.avg))}); });
+  return out;
+}
+function pagesPlan(k){
+  const A=avgPages(); let total=0,done=0;
+  DATA.forEach(b=>b.temas.forEach((_,i)=>{ const s=get(`${b.id}-${i+1}`), w=weightOf(s,A.avg); total+=w; if(s[k]) done+=w; }));
+  if(A.known) partials(k).forEach(m=>done+=m.w);
+  return {...A,ok:A.known>0,total,done,left:Math.max(total-done,0)};
+}
+/* marcas de un paso con su peso en páginas: [{d:fecha|null, w}] */
+function marksW(k){
+  const A=avgPages(), out=[];
+  DATA.forEach(b=>b.temas.forEach((_,i)=>{ const s=get(`${b.id}-${i+1}`); if(s[k]) out.push({d:s["d"+k]?fromISO(s["d"+k]):null,w:weightOf(s,A.avg)}); }));
+  return out.concat(partials(k));
+}
 function count(k,block){
   let c=0;(block?[block]:DATA).forEach(b=>b.temas.forEach((_,i)=>{ if(get(`${b.id}-${i+1}`)[k]) c++; }));
   return c;
 }
 
-/* ================= CÁLCULO DE PLAZOS ================= */
+/* ================= CÁLCULO DE PLAZOS =================
+   Plan: las páginas al día elegidas para la fase (20 por defecto) desde hoy (o desde el inicio de la fase) hasta terminar las que faltan.
+   Si ese plan termina antes de la fecha límite, llegas. */
+const addDays=(d,n)=>{ const x=new Date(d); x.setDate(x.getDate()+n); return x; };
 function phaseInfo(p,i){
   const now=today();
   const from=i===0?fromISO(start):fromISO(PHASES[i-1].deadline);
   const to=fromISO(p.deadline);
   const done=count(p.k), left=TOTAL-done;
+  const P=pagesPlan(p.k);
   const span=Math.max(days(from,to),1);
   const t=Math.min(Math.max(days(from,now)/span,0),1);
   const dLeft=days(now,to);
-  /* ritmo necesario desde hoy (o desde el inicio de la fase si aún no ha empezado) */
-  const pace=left/(Math.max(days(now<from?from:now,to),1)/7);
-  /* proyección con tu ritmo real: temas hechos / días de fase transcurridos (hoy cuenta) */
   const started=now>=from;
+  const base=started?now:from;
+  const avail=Math.max(days(base,to),1);                 // días hasta la fecha límite
+  const need=P.left/avail;                                // págs/día para llegar justo
+  const ppd=pace[p.k];                                    // ritmo del plan de esta fase
+  const planDays=Math.ceil(P.left/ppd-1e-9);              // días que necesitas a ese ritmo
+  const plan=addDays(base,planDays), margin=days(plan,to);
   const elapsed=started?days(from,now)+1:0;
-  /* esta semana (lunes a domingo) frente al objetivo semanal */
-  const mon=mondayOf(now);
-  const thisWeek=marksOf(p.k).filter(d=>d&&+d>=+mon).length;
-  /* objetivo fijo para toda la semana: lo que quedaba el lunes (o al empezar la fase) repartido hasta la fecha límite */
-  const wkStart=mon<from?from:mon;
-  const goal=Math.ceil((left+thisWeek)/(Math.max(days(wkStart,to),1)/7)-1e-9);
-  /* ritmo real y fecha estimada con al menos 7 días de datos: antes, 1 tema el primer día daría "7/semana" */
+  /* ritmo real con al menos 7 días de datos: antes, un tema el primer día daría un ritmo irreal */
   const ready=elapsed>=7;
-  const real=started&&done>0&&ready?done/elapsed*7:null;   // temas/semana
-  const early=started&&!ready;
-  let proj=null, margin=null;
-  if(real&&left>0){ proj=new Date(now); proj.setDate(proj.getDate()+Math.ceil(left/(real/7))); margin=days(proj,to); }
-  return {from,to,done,left,t,dLeft,pace,started,elapsed,real,proj,margin,early,thisWeek,goal};
+  const real=started&&P.done>0&&ready?P.done/elapsed:null;          // págs/día
+  const projReal=real&&P.left>0?addDays(now,Math.ceil(P.left/real)):null;
+  const mon=mondayOf(now);
+  const thisWeek=marksW(p.k).filter(m=>m.d&&+m.d>=+mon).reduce((s,m)=>s+m.w,0);
+  return {from,to,done,left,P,ppd,t,dLeft,started,elapsed,need,planDays,plan,margin,real,projReal,early:started&&!ready,thisWeek};
 }
 
 /* ================= RENDER ================= */
@@ -786,12 +891,34 @@ function saveDL(k,v){
   closeDL(k); update();
   toast(`${PHASES[i].name}: nueva fecha límite el ${fmt(fromISO(v))}`);
 }
+/* ritmo del plan: mismo patrón que la fecha límite */
+function openPace(k){
+  const inp=document.getElementById(`ppi-${k}`); inp.value=pace[k];
+  document.getElementById(`wpp-${k}`).hidden=true;
+  document.getElementById(`ppf-${k}`).hidden=false;
+  inp.focus(); inp.select();
+}
+function closePace(k){
+  document.getElementById(`ppf-${k}`).hidden=true;
+  document.getElementById(`wpp-${k}`).hidden=false;
+  document.querySelector(`[data-edit-pp="${k}"]`).focus();
+}
+function savePace(k,v){
+  const n=toPace(v);
+  if(n==null){ toast(`Escribe un ritmo entre 1 y ${PPD_MAX} páginas al día`); return; }
+  pace[k]=n; store(PACE_KEY,pace);
+  closePace(k); update();
+  toast(`${PHASES.find(p=>p.k===k).name}: plan de ${n} ${n===1?"página":"páginas"} al día`);
+}
 document.addEventListener("submit",e=>{
+  const pf=e.target.closest(".pp-form");
+  if(pf){ e.preventDefault(); savePace(pf.dataset.k,pf.querySelector("input").value); return; }
   const f=e.target.closest(".dl-form"); if(!f) return;
   e.preventDefault(); saveDL(f.dataset.k,f.querySelector("input").value);
 });
 document.addEventListener("keydown",e=>{
   if(e.key!=="Escape") return;
+  const pf=e.target.closest&&e.target.closest(".pp-form"); if(pf){ closePace(pf.dataset.k); return; }
   const f=e.target.closest&&e.target.closest(".dl-form"); if(f) closeDL(f.dataset.k);
 });
 /* ================= PLAZOS: panel con pestañas ================= */
@@ -799,6 +926,20 @@ const PTABS=[{k:"a",name:PHASES[0].name},{k:"r",name:RES.name},{k:"b",name:PHASE
 const pl=n=>`${n} ${n===1?"día":"días"}`;
 const perWeek=x=>`${n1(x)} ${n1(x)==="1"?"tema":"temas"}/semana`;
 
+const ICON_X=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>`;
+function paceEditor(p){
+  const n=pace[p.k];
+  return `<div class="pz-dl" id="wpp-${p.k}">
+      <span>Plan<b>${n} págs/día</b></span>
+      <button type="button" class="edit" data-edit-pp="${p.k}" aria-label="Cambiar el ritmo del plan de la ${p.name}" title="Cambiar el ritmo">${ICON_PEN}</button>
+    </div>
+    <form class="dl-form pp-form" id="ppf-${p.k}" data-k="${p.k}" hidden>
+      <label class="sr" for="ppi-${p.k}">Páginas al día para la ${p.name}</label>
+      <span class="pp-in"><input type="number" id="ppi-${p.k}" inputmode="numeric" min="1" max="${PPD_MAX}" step="1" required><span aria-hidden="true">págs/día</span></span>
+      <button type="submit" class="btn-p">Guardar</button>
+      <button type="button" class="btn-g" data-cancel-pp="${p.k}" aria-label="Cancelar" title="Cancelar">${ICON_X}</button>
+    </form>`;
+}
 function dlEditor(p){
   return `<div class="pz-dl" id="wdl-${p.k}">
       <span>Límite<b>${fmt(fromISO(p.deadline))}</b></span>
@@ -834,54 +975,68 @@ function rings(k,outer,inner){
       ${inner==null?"":`<circle class="trk i" cx="${c}" cy="${c}" r="${ri}"/>${arc(`i-${k}`,ri,inner,"rg-time")}`}
     </svg>`;
 }
-function ringBlock(k,done,inner,legend){
-  return `<div class="ring-wrap"><div class="rings" role="img" aria-label="${done} de ${TOTAL} temas${inner!=null?`; plazo consumido ${Math.round(inner*100)} %`:""}">
-      ${rings(k,done/TOTAL,inner)}
-      <div class="ring-in"><b>${done}</b><span>de ${TOTAL}</span></div>
+function ringBlock(k,done,inner,legend,of=TOTAL,unit="temas"){
+  return `<div class="ring-wrap"><div class="rings" role="img" aria-label="${nf(done)} de ${nf(of)} ${unit}${inner!=null?`; plazo consumido ${Math.round(inner*100)} %`:""}">
+      ${rings(k,of?done/of:0,inner)}
+      <div class="ring-in"><b>${nf(done)}</b><span>de ${nf(of)}${unit==="págs"?" págs":""}</span></div>
     </div>${legend}</div>`;
 }
 
 const tile=(l,v,u="",d="",dc="")=>`<div class="tile"><small>${l}</small><div class="v"><b>${v}</b>${u?`<span>${u}</span>`:""}</div>${d?`<span class="d ${dc}">${d}</span>`:""}</div>`;
 
-/* titular + métricas según el estado de la fase */
+/* titular + métricas según el estado de la fase, todo en páginas */
 function phaseView(p,f){
-  const ritmo=x=>n1(x), sem="temas/sem";
+  const P=f.P, pd="págs/día", PPD=f.ppd;
   if(f.left===0){
-    const ds=marksOf(p.k).filter(Boolean), last=ds.length?new Date(Math.max(...ds)):null;
+    const ds=marksW(p.k).map(m=>m.d).filter(Boolean), last=ds.length?new Date(Math.max(...ds)):null;
     const m=last?days(last,f.to):null;
     return {cls:"ok",h:`${p.name} <em>completada</em>`,
-      tiles:tile("Leídos",TOTAL,`de ${TOTAL}`)+tile("Terminada",last?fmtS(last):"—")+tile("Margen",m==null?"—":m,m==null?"":"días")};
+      tiles:tile("Leídas",P.ok?nf(P.total):TOTAL,P.ok?"págs":"temas")+tile("Terminada",last?fmtS(last):"—")+tile("Margen",m==null?"—":m,m==null?"":"días")};
   }
+  if(!P.ok) return {cls:"warn",h:`Anota las <em>páginas</em> de los temas`,
+    note:`El plan es de ${PPD} páginas al día: con las páginas de cada tema se calcula si llegas a la fecha límite.`,
+    tiles:tile("Faltan",f.left,f.left===1?"tema":"temas")+tile("Quedan",Math.max(f.dLeft,0),"días")+tile("Plan",PPD,pd)};
   if(f.dLeft<0) return {cls:"bad",h:`Plazo <em>vencido</em>`,
-    tiles:tile("Faltan",f.left,"temas")+tile("Venció",fmtS(f.to))+tile("Tu ritmo",f.real?ritmo(f.real):"—",f.real?sem:"")};
-  if(!f.started) return {cls:"",h:`Empieza el <em>${fmt(f.from)}</em>`,
-    tiles:tile("Empieza en",days(today(),f.from),"días")+tile("Duración",days(f.from,f.to),"días")+tile("Necesitarás",ritmo(f.pace),sem)};
-  if(f.early){
-    const miss=Math.max(f.goal-f.thisWeek,0);
-    const dLeftWk=7-((today().getDay()+6)%7);                 // hoy incluido, hasta el domingo
-    return {cls:miss===0?"ok":"",
-      h:miss===0?`Objetivo de la semana <em>cumplido</em>`:`Esta semana: <em>${f.thisWeek} de ${f.goal}</em> temas`,
-      note:`La fecha estimada de fin aparece cuando tengas 7 días de datos.`,
-      tiles:tile("Te faltan esta semana",miss,miss===1?"tema":"temas")+tile("Quedan de semana",dLeftWk,dLeftWk===1?"día":"días")+tile("Necesario",ritmo(f.pace),sem)};
+    tiles:tile("Faltan",nf(P.left),"págs")+tile("Venció",fmtS(f.to))+tile("Tu ritmo",f.real?n1(f.real):"—",f.real?pd:"")};
+  if(!f.started){
+    const dur=days(f.from,f.to), sobra=dur-f.planDays;
+    return {cls:sobra>=0?"":"bad",h:`Empieza el <em>${fmt(f.from)}</em>`,
+      note:sobra>=0?`A ${PPD} págs/día te sobran ${pl(sobra)}.`:`A ${PPD} págs/día te faltarían ${pl(-sobra)}: necesitas ${n1(f.need)} págs/día.`,
+      tiles:tile("Empieza en",days(today(),f.from),"días")+tile("Duración",dur,"días")+tile(`A ${PPD} págs/día`,f.planDays,"días")};
   }
-  if(f.real==null) return {cls:f.elapsed>7?"warn":"",h:`Aún <em>sin temas</em> leídos`,
-    tiles:tile("Quedan",f.dLeft,"días")+tile("Necesario",ritmo(f.pace),sem)};
-  const diff=f.real-f.pace, note="";
-  const d=Math.abs(diff)<0.05?["Justo lo necesario",""]:diff>0?[`+${n1(diff)} de sobra`,"ok"]:[`−${n1(-diff)} de menos`,"bad"];
-  return {cls:f.margin>=0?"ok":"bad",note,
-    h:f.margin>=0?`Llegas con <em>${pl(f.margin)}</em> de margen`:`No llegas: <em>${pl(-f.margin)} tarde</em>`,
-    tiles:tile("Acabarías",fmtS(f.proj))+tile("Tu ritmo",ritmo(f.real),sem,d[0],d[1])+tile("Necesario",ritmo(f.pace),sem)};
+  const h=f.margin>=0?`A ${PPD} págs/día llegas con <em>${pl(f.margin)}</em> de margen`
+                     :`A ${PPD} págs/día <em>no llegas</em>: ${pl(-f.margin)} tarde`;
+  let ritmo;
+  if(f.early){
+    const goal=PPD*7;
+    ritmo=tile("Esta semana",nf(f.thisWeek),`de ${goal} págs`,f.thisWeek>=goal?"Objetivo cumplido":`Faltan ${nf(goal-f.thisWeek)}`,f.thisWeek>=goal?"ok":"");
+  }else if(f.real==null){
+    ritmo=tile("Tu ritmo","—","","Aún sin páginas leídas","");
+  }else{
+    const diff=f.real-PPD;
+    const d=Math.abs(diff)<0.05?[`Justo ${PPD}`,""]:diff>0?[`+${n1(diff)} sobre ${PPD}`,"ok"]:[`−${n1(-diff)} bajo ${PPD}`,"bad"];
+    ritmo=tile("Tu ritmo",n1(f.real),pd,d[0],d[1]);
+  }
+  const nd=f.need<=PPD?["Cabe en el plan","ok"]:[`${n1(f.need-PPD)} más que el plan`,"bad"];
+  /* el titular es el plan; debajo, lo que dice tu ritmo real, en rojo si con él no llegas */
+  let note=f.early?`Tu ritmo real aparece cuando tengas 7 días de datos.`:"", noteCls="";
+  if(f.real&&f.projReal){ const m=days(f.projReal,f.to);
+    note=`A tu ritmo actual (${n1(f.real)} ${pd}) acabarías el ${fmt(f.projReal)}: ${m>=0?`${pl(m)} de margen`:`${pl(-m)} tarde`}.`;
+    noteCls=m>=0?"ok":"bad"; }
+  return {cls:f.margin>=0?"ok":"bad",h,note,noteCls,
+    tiles:tile("Acabarías",fmtS(f.plan),"",`a ${PPD} ${pd}`)+ritmo+tile("Necesario",n1(f.need),pd,nd[0],nd[1])};
 }
 
-/* temas por semana, con la línea del ritmo necesario */
+/* páginas por semana, con la línea del plan (ritmo × 7) */
 function weeks(p,f){
-  const now=today(), k=p.k, wNow=+mondayOf(now);
+  const now=today(), k=p.k, wNow=+mondayOf(now), PPD=f.ppd;
   const w0=mondayOf(f.from), wEnd=mondayOf(f.to>now?f.to:now);
   let list=[]; for(let d=new Date(w0); d<=wEnd; d.setDate(d.getDate()+7)) list.push({d:new Date(d),n:0});
-  marksOf(k).forEach(d=>{ const w=+mondayOf(d&&d>=f.from?d:f.from); const it=list.find(x=>+x.d===w); if(it) it.n++; });
+  marksW(k).forEach(m=>{ const w=+mondayOf(m.d&&m.d>=f.from?m.d:f.from); const it=list.find(x=>+x.d===w); if(it) it.n+=m.w; });
+  list.forEach(x=>x.n=Math.round(x.n));
   if(list.length>26){ const ci=list.findIndex(x=>+x.d===wNow); list=list.slice(Math.max(0,Math.min(ci-12,list.length-26)),Math.max(0,Math.min(ci-12,list.length-26))+26); }
-  const need=f.left>0&&f.dLeft>=0?f.pace:null;
-  const max=Math.max(...list.map(x=>x.n),need?need*1.35:0,2);
+  const goal=PPD*7;
+  const max=Math.max(...list.map(x=>x.n),goal*1.35,2);
   const [g1,g2]=GRAD[k], n=list.length, step=n>14?2:1;
   const cols=list.map(x=>{ const w=+x.d, cur=w===wNow, fut=w>wNow, id=`wk-${k}-${w}`, h=x.n/max*100;
     return `<div class="wk-col${cur?" cur":""}${fut?" fut":""}"><span class="wk-n">${fut?"":x.n}</span><i class="wk-bar${x.n?"":" zero"}" data-id="${id}" data-h="${h}" style="height:${lastOff[id]??0}%"></i></div>`; }).join("");
@@ -890,10 +1045,10 @@ function weeks(p,f){
     const sun=new Date(x.d); sun.setDate(sun.getDate()+6);
     return `<span class="${cls}" title="Semana del ${fmt(x.d)} al ${fmt(sun)}">${fmtS(x.d)}</span>`; }).join("");
   return `<div class="weeks" style="--g1:${g1};--g2:${g2}">
-      <div class="wk-h"><h4>Temas por semana <span class="wk-sub">lunes a domingo</span></h4>${need?`<p><i></i>Necesario para llegar</p>`:""}</div>
-      <div class="wk-plot" role="img" aria-label="Temas leídos por semana${need?`; necesario ${n1(need)} por semana`:""}">
+      <div class="wk-h"><h4>Páginas por semana <span class="wk-sub">lunes a domingo</span></h4><p><i></i>Plan: ${PPD} págs/día</p></div>
+      <div class="wk-plot" role="img" aria-label="Páginas leídas por semana; plan de ${goal} por semana">
         ${cols}
-        ${need?`<div class="wk-need" style="bottom:${need/max*100}%"><span>${n1(need)}/sem</span></div>`:""}
+        <div class="wk-need" style="bottom:${goal/max*100}%"><span>${goal}/sem</span></div>
       </div>
       <div class="wk-x">${xs}</div>
     </div>`;
@@ -938,18 +1093,21 @@ function renderPlazo(infos,activeIdx){
     animateIn(body); return;
   }
   const i=PHASES.findIndex(p=>p.k===cur), p=PHASES[i], f=infos[i], v=phaseView(p,f);
-  const legend=`<div class="ring-leg"><span><i></i>Leídos <b>${Math.round(f.done/TOTAL*100)} %</b></span><span><i></i>Plazo <b>${Math.round(f.t*100)} %</b></span></div>`;
+  const P=f.P, byPg=P.ok, frac=byPg?(P.total?P.done/P.total:0):f.done/TOTAL;
+  const legend=`<div class="ring-leg"><span><i></i>Leído <b>${Math.round(frac*100)} %</b></span><span><i></i>Plazo <b>${Math.round(f.t*100)} %</b></span></div>`;
+  const pagesLine=byPg?`<p class="pz-pages"><b>${nf(P.done)}</b> de <b>${nf(P.total)}</b> páginas leídas · faltan <b>${nf(P.left)}</b> · ${f.done} de ${TOTAL} temas${P.missing?` · ${P.missing} ${P.missing===1?"tema":"temas"} sin páginas, contados con la media (${nf(P.avg)})`:""}</p>`:"";
   body.innerHTML=`<div class="pz-top">
-      ${ringBlock(p.k,f.done,f.t,legend)}
+      ${byPg?ringBlock(p.k,P.done,f.t,legend,P.total,"págs"):ringBlock(p.k,f.done,f.t,legend)}
       <div class="pz-main">
         <div class="pz-head">
-          <div><p class="pz-h ${v.cls}">${v.h}</p><p class="pz-note">${v.note||""}</p></div>
-          ${dlEditor(p)}
+          <div><p class="pz-h ${v.cls}">${v.h}</p><p class="pz-note ${v.noteCls||""}">${v.note||""}</p></div>
+          <div class="pz-ctl">${dlEditor(p)}${paceEditor(p)}</div>
         </div>
         <div class="tiles">${v.tiles}</div>
+        ${pagesLine}
       </div>
     </div>
-    ${f.started&&f.left>0?weeks(p,f):""}`;
+    ${f.started&&f.left>0&&byPg?weeks(p,f):""}`;
   animateIn(body);
 }
 function selectPtab(k,focus){
@@ -976,6 +1134,9 @@ function renderTabs(){
 
 const ICON_CHECK=`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg>`;
 const LABELS={a:["1ª"," lectura"],b:["2ª"," lectura"],r:["Resumen",""]};
+const ICON_DIG=`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>`;
+const ICON_FCH=`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="3" width="14" height="14" rx="2"/><path d="M17 21H5a2 2 0 0 1-2-2V7"/></svg>`;
+const ICON_OK=`<svg class="ck" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg>`;
 
 function renderPanel(){
   const b=DATA.find(x=>x.id===ui.tab)||DATA[0];
@@ -991,6 +1152,7 @@ function renderPanel(){
         <div class="p-stat" data-k="r"><small>Resúmenes</small><b id="ps-r"></b><div class="mini"><i id="pm-r"></i></div></div>
         <div class="p-stat" data-k="b"><small>2ª lectura</small><b id="ps-b"></b><div class="mini"><i id="pm-b"></i></div></div>
       </div>
+      <p class="p-mat" id="pmat"></p>
       <p class="p-hint">${ICON_BM}<span>Pulsa el número de un tema para marcar por dónde vas en este bloque.</span></p>
     </div>
     <div class="thead" aria-hidden="true"><span>#</span><span>Tema</span><span>1ª lectura</span><span>Resumen</span><span>2ª lectura</span></div>
@@ -1000,7 +1162,14 @@ function renderPanel(){
         const btn=k=>`<button class="tg" data-id="${id}" data-k="${k}" aria-pressed="false" aria-label="Tema ${i+1}: ${k==="r"?"resumen hecho":LABELS[k].join("")}"><span class="box">${ICON_CHECK}</span><span class="lb"><span class="lx">${LABELS[k][0]}</span><span class="lf">${LABELS[k][1]}</span></span></button>`;
         return `<li class="row" id="row-${id}" style="animation-delay:${i*25}ms">
           <button type="button" class="num" data-here="${id}" aria-pressed="false" aria-label="Tema ${i+1}: marcar por dónde vas" title="Marcar por dónde vas"><span class="n">${i+1}</span>${ICON_BM}</button>
-          <div class="ttext"><div class="ttitle">${t}</div><div class="tstate"></div></div>
+          <div class="ttext"><div class="ttitle">${t}</div>
+            <div class="tmeta">
+              <label class="pg" title="Número de páginas del tema"><input type="number" inputmode="numeric" min="1" max="9999" step="1" placeholder="—" data-pg="${id}" aria-label="Tema ${i+1}: número de páginas">págs</label>
+              <button type="button" class="mt" data-mat="dig" data-id="${id}" aria-pressed="false" aria-label="Tema ${i+1}: temario digital">${ICON_DIG}${ICON_OK}Digital</button>
+              <button type="button" class="mt" data-mat="fch" data-id="${id}" aria-pressed="false" aria-label="Tema ${i+1}: fichas">${ICON_FCH}${ICON_OK}Fichas</button>
+              <label class="hp" title="Página por la que vas en este tema">${ICON_BM}<span>Vas por la pág.</span><input type="number" inputmode="numeric" min="1" max="9999" step="1" placeholder="—" data-hp="${id}" aria-label="Tema ${i+1}: página por la que vas"><span class="hp-of"></span></label>
+            </div>
+            <div class="tstate"></div></div>
           <div class="acts">${btn("a")}${btn("r")}${btn("b")}</div>
         </li>`;
       }).join("")}
@@ -1023,7 +1192,7 @@ function countTo(el,to){
 
 function stateHTML(s,h){
   const out=[];
-  if(h) out.push(`<span class="here-tag"><i style="background:var(--phase)"></i>Vas por aquí · desde el ${fmt(fromISO(h.since))}</span>`);
+  if(h) out.push(`<span class="here-tag"><i style="background:var(--phase)"></i>Vas por aquí · desde el ${fmt(fromISO(h.since))}${h.pag?` · pág. ${h.pag} el ${fmt(fromISO(h.pd))}`:""}</span>`);
   if(!s.a&&!s.b&&!s.r) return out.length?out.join(""):`<span>Pendiente</span>`;
   if(s.a) out.push(`<span><i style="background:var(--c-a)"></i>1ª${s.da?" · "+fmt(fromISO(s.da)):""}</span>`);
   if(s.r) out.push(`<span><i style="background:var(--c-r)"></i>Resumen${s.dr?" · "+fmt(fromISO(s.dr)):""}</span>`);
@@ -1056,8 +1225,18 @@ function update(){
     document.getElementById(`ps-${key}`).textContent=`${c}/${len}`;
     document.getElementById(`pm-${key}`).style.width=(c/len*100)+"%";
   });
+  /* páginas del bloque (solo las anotadas) */
+  let pgT=0,pgA=0,pgN=0; b.temas.forEach((_,i)=>{ const s=get(`${b.id}-${i+1}`); if(s.pg){ pgN++; pgT+=s.pg; if(s.a) pgA+=s.pg; } });
+  const hb=here[b.id]; if(hb&&hb.pag){ const s=get(`${b.id}-${hb.n}`); if(s.pg&&!s.a) pgA+=Math.min(hb.pag,s.pg); }
+  document.getElementById("pmat").innerHTML=pgN?`<span><b>${nf(pgT)}</b> páginas${pgN<len?` en ${pgN} de ${len} temas`:""}</span><span><b>${nf(pgA)}</b> leídas en 1ª</span>`:"";
   b.temas.forEach((_,i)=>{
     const id=`${b.id}-${i+1}`, s=get(id), row=document.getElementById(`row-${id}`);
+    const inp=row.querySelector("[data-pg]");
+    if(document.activeElement!==inp) inp.value=s.pg||"";
+    const hp=row.querySelector("[data-hp]"), hh=hereOf(id);
+    if(document.activeElement!==hp) hp.value=hh&&hh.pag?hh.pag:"";
+    row.querySelector(".hp-of").textContent=s.pg?`de ${s.pg}`:"";
+    row.querySelectorAll(".mt").forEach(m=>{ const on=!!s[m.dataset.mat]; m.classList.toggle("on",on); m.setAttribute("aria-pressed",on); });
     row.classList.toggle("ra",s.a&&!s.b);
     row.classList.toggle("rb",s.b);
     const h=hereOf(id), isHere=!!h;
@@ -1115,6 +1294,8 @@ document.addEventListener("click",e=>{
     row.classList.remove("flash"); void row.offsetWidth; row.classList.add("flash");
     row.querySelector(".num").focus({preventScroll:true}); return; }
   const cn=e.target.closest("[data-cancel]"); if(cn){ closeDL(cn.dataset.cancel); return; }
+  const ep=e.target.closest("[data-edit-pp]"); if(ep){ openPace(ep.dataset.editPp); return; }
+  const cp=e.target.closest("[data-cancel-pp]"); if(cp){ closePace(cp.dataset.cancelPp); return; }
   const t=e.target.closest(".tg");
   if(t){
     const id=t.dataset.id,k=t.dataset.k,s={...get(id)};
@@ -1142,9 +1323,34 @@ document.addEventListener("click",e=>{
     }
     return;
   }
+  const mt=e.target.closest("[data-mat]");
+  if(mt){ const id=mt.dataset.id, m=mt.dataset.mat, s={...get(id)};
+    s[m]=!s[m]; save(id,s); update(); return; }
   const pt=e.target.closest("[data-ptab]"); if(pt){ selectPtab(pt.dataset.ptab); return; }
   const tab=e.target.closest(".tab");
   if(tab){ ui.tab=tab.dataset.tab; store(UI_KEY,ui); renderPanel(); }
+});
+/* páginas: se guardan al cambiar (Intro o salir del campo) */
+document.addEventListener("change",e=>{
+  const hp=e.target.closest&&e.target.closest("[data-hp]");
+  if(hp){ const id=hp.dataset.hp, bid=id.split("-")[0], h=hereOf(id); if(!h) return;
+    const s=get(id), v=hp.value.trim(), max=s.pg||9999;
+    const n=v===""?null:Math.round(Number(v));
+    if(v!==""&&!(Number.isFinite(n)&&n>=1&&n<=max)){ toast(s.pg?`Este tema tiene ${s.pg} páginas`:"Escribe una página entre 1 y 9999"); hp.value=h.pag||""; return; }
+    if(n===(h.pag||null)) return;
+    if(n==null){ delete h.pag; delete h.pd; } else { h.pag=n; h.pd=toISO(today()); }
+    store(HERE_KEY,here); update();
+    if(n) toast(s.pg&&n===s.pg?`Tema ${id.split("-")[1]}: última página. Márcalo como leído cuando lo termines`:`Tema ${id.split("-")[1]}: vas por la página ${n}${s.pg?` de ${s.pg}`:""}`);
+    return; }
+  const inp=e.target.closest&&e.target.closest("[data-pg]"); if(!inp) return;
+  const id=inp.dataset.pg, s={...get(id)}, v=inp.value.trim();
+  const n=v===""?null:toPages(v);
+  if(v!==""&&n==null){ toast("Escribe un número de páginas entre 1 y 9999"); inp.value=s.pg||""; return; }
+  if(n===s.pg) return;
+  s.pg=n; save(id,s); inp.value=n||""; update();
+});
+document.addEventListener("keydown",e=>{
+  if(e.key==="Enter"&&e.target.matches&&e.target.matches("[data-pg],[data-hp]")) e.target.blur();
 });
 document.getElementById("ptabs").addEventListener("keydown",e=>{
   if(!["ArrowLeft","ArrowRight"].includes(e.key)) return;
@@ -1175,14 +1381,14 @@ document.addEventListener("visibilitychange",()=>{ if(!document.hidden){ paintDa
 
 /* otra pestaña con la app abierta cambió datos: recargar para no pisarlos al guardar */
 addEventListener("storage",e=>{
-  if(e.key!==null&&![KEY,HERE_KEY,DL_KEY,START_KEY].includes(e.key)) return;
+  if(e.key!==null&&![KEY,HERE_KEY,DL_KEY,START_KEY,PACE_KEY].includes(e.key)) return;
   reloadFromStorage(); update();
 });
 
 /* ================= COPIA DE SEGURIDAD ================= */
 function exportData(){
   const data={app:"OposiTAI",v:1,exported:new Date().toISOString(),
-    progress:state,here,deadlines:{a:PHASES[0].deadline,b:PHASES[1].deadline},start};
+    progress:state,here,deadlines:{a:PHASES[0].deadline,b:PHASES[1].deadline},pace,start};
   const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));
   const a=document.createElement("a"); a.href=url; a.download=`opositai-${toISO(today())}.json`;
   document.body.append(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000);
@@ -1197,6 +1403,7 @@ function importData(file){
     store(KEY,normalize(d.progress)); store(HERE_KEY,normHere(d.here));
     if(d.deadlines&&isISO(d.deadlines.a)&&isISO(d.deadlines.b)&&d.deadlines.a<d.deadlines.b) store(DL_KEY,{a:d.deadlines.a,b:d.deadlines.b});
     if(isISO(d.start)) store(START_KEY,d.start);
+    if(d.pace&&typeof d.pace==="object") store(PACE_KEY,{a:toPace(d.pace.a)||PPD,b:toPace(d.pace.b)||PPD});
     reloadFromStorage(); update(); toast("Copia restaurada");
   };
   rd.onerror=()=>toast("No se pudo leer el archivo");
