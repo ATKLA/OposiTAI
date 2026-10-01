@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>OposiTAI · TAI 2026</title>
-<meta name="description" content="Seguimiento del temario TAI 2026: lecturas, resúmenes y plazos.">
+<meta name="description" content="Seguimiento del temario TAI 2026: lecturas, material y plazos.">
 <script>try{var t=localStorage.getItem("tai2026-theme");if(t==="light"||t==="dark")document.documentElement.dataset.theme=t;}catch(e){}</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -69,9 +69,9 @@
   .brand{text-decoration:none;font-family:var(--mono);font-weight:600;font-size:16px;letter-spacing:-.01em;white-space:nowrap;margin-right:auto}
   .brace{color:var(--c-r-ink)}
   .grad{background:linear-gradient(90deg,var(--c-a-ink),var(--c-b-ink));-webkit-background-clip:text;background-clip:text;color:transparent}
-  .inap{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid var(--border-hi);transition:border-color .2s,background .2s}
-  .inap:hover{border-color:var(--text);background:var(--surface-2)}
-  .inap svg{width:14px;height:14px}
+  .nlink{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-size:14px;font-weight:600;padding:7px 14px;border-radius:999px;border:1px solid var(--border-hi);transition:border-color .2s,background .2s}
+  .nlink:hover{border-color:var(--text);background:var(--surface-2)}
+  .nlink svg{width:14px;height:14px}
   .today{font-size:14px;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
   .today .dl::first-letter{text-transform:uppercase}
   .today .ds{display:none}
@@ -194,7 +194,7 @@
   .tg.on .box svg{opacity:1;transform:none}
 
   /* ================= MATERIAL DEL TEMA ================= */
-  /* páginas, temario digital y fichas: datos del tema, no pasos de estudio */
+  /* páginas del tema: dato del tema, no paso de estudio */
   .tmeta{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:8px}
   .pg{display:inline-flex;align-items:center;height:30px;padding:0 10px 0 2px;border-radius:8px;border:1px solid var(--border-hi);background:var(--surface);font-size:12px;font-weight:600;color:var(--muted);transition:border-color .2s}
   .pg:hover{border-color:var(--blk-ink)}
@@ -203,13 +203,6 @@
   .pg input::-webkit-inner-spin-button,.pg input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
   .pg input:focus-visible{outline:none}
   .pg input::placeholder{color:var(--faint);font-weight:500}
-  .mt{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 11px 0 8px;border-radius:999px;border:1px solid var(--border-hi);background:var(--surface);font-size:12px;font-weight:600;color:var(--muted);transition:background .2s,color .2s,border-color .2s}
-  .mt svg{width:15px;height:15px;flex:none}
-  .mt .ck{display:none}
-  .mt:hover{border-color:var(--blk-ink);color:var(--text)}
-  .mt.on{background:color-mix(in srgb,var(--blk-ink) 13%,var(--surface));border-color:color-mix(in srgb,var(--blk-ink) 55%,transparent);color:var(--blk-ink)}
-  .mt.on .ic{display:none}
-  .mt.on .ck{display:block}
   /* página por la que vas: solo en el tema marcado, con el color de la fase */
   .hp{display:none;align-items:center;gap:6px;height:30px;padding:0 10px 0 8px;border-radius:8px;font-size:12px;font-weight:600;color:var(--text);
     border:1px solid color-mix(in srgb,var(--phase) 55%,transparent);background:color-mix(in srgb,var(--phase) 10%,var(--surface))}
@@ -229,6 +222,37 @@
   .pz-pages{margin-top:14px;font-size:13px;color:var(--muted)}
   .pz-pages b{color:var(--text);font-variant-numeric:tabular-nums}
 
+  /* ================= TEMARIO DIGITAL Y FICHAS ================= */
+  /* columnas de material: mismo check que la lectura, con el color del bloque */
+  .tg[data-mat]{--t:var(--blk-ink);--on:var(--surface)}
+  /* cabecera de la tabla: marcar o desmarcar todo el bloque */
+  .thead{display:flex;align-items:center;gap:6px;padding:10px 14px;font-size:12px;font-weight:700;color:var(--muted);background:var(--surface-2);border-bottom:1px solid var(--border)}
+  .thead>span:not(.th-all){display:none}
+  .th-all{margin-right:auto;font-size:13px;font-weight:600;white-space:nowrap}
+  .bt{display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 10px 0 8px;border-radius:8px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);transition:background .2s,color .2s}
+  .bt:hover{background:var(--surface);color:var(--text)}
+  .bt .box{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--ctl);display:grid;place-items:center;flex:none;color:var(--surface);transition:background .2s,border-color .2s}
+  .bt .box svg{width:12px;height:12px;display:none}
+  .bt:hover .box{border-color:var(--blk-ink)}
+  .bt[aria-pressed="true"] .box,.bt[aria-pressed="mixed"] .box{background:var(--blk-ink);border-color:var(--blk-ink)}
+  .bt[aria-pressed="true"] .i-ck,.bt[aria-pressed="mixed"] .i-mx{display:block}
+
+  /* ================= ORDEN DE LECTURA (arrastrar) ================= */
+  .list{position:relative}
+  .row{background-color:var(--surface)}
+  .row:hover{background-color:var(--surface-2)}
+  .list.sorted .row{animation:none}
+  .grip{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;width:24px;height:36px;flex:none;display:grid;place-items:center;border-radius:8px;color:var(--faint);cursor:grab;touch-action:none;transition:color .2s,background .2s}
+  .grip:hover{color:var(--text);background:color-mix(in srgb,var(--text) 7%,transparent)}
+  .grip svg{width:16px;height:16px}
+  .row.dragging{position:relative;z-index:4;cursor:grabbing;box-shadow:0 0 0 1px var(--border-hi),0 14px 30px -12px rgba(0,0,0,.35)}
+  .row.here.dragging{box-shadow:inset 4px 0 0 var(--phase),0 0 0 1px var(--border-hi),0 14px 30px -12px rgba(0,0,0,.35)}
+  .row.dragging .grip{color:var(--text);cursor:grabbing}
+  body.is-dragging{cursor:grabbing;-webkit-user-select:none;user-select:none}
+  .p-reset{margin-left:4px;font-size:13px;font-weight:600;padding:2px 10px;border-radius:999px;border:1px solid var(--border-hi);color:var(--text);transition:border-color .2s}
+  .p-reset:hover{border-color:var(--text)}
+  .p-reset[hidden]{display:none}
+
   /* ================= FOOTER ================= */
   footer{margin-top:56px;padding:28px 16px 40px;border-top:1px solid var(--border);text-align:center}
   .foot{font-size:14px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 10px;justify-content:center;align-items:center}
@@ -236,9 +260,6 @@
   .foot a:hover{border-color:var(--text)}
   .foot a svg{width:14px;height:14px;color:var(--text)}
   .src{font-size:13px;color:var(--muted);margin-top:12px}
-  .backup{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 8px;justify-content:center;align-items:center;margin-top:14px}
-  .bk{font-size:13px;font-weight:600;padding:4px 12px;border-radius:999px;border:1px solid var(--border-hi);transition:border-color .2s}
-  .bk:hover{border-color:var(--text)}
 
   /* ================= EFECTOS ================= */
   #fx{position:fixed;inset:0;pointer-events:none;z-index:60}
@@ -254,8 +275,8 @@
   @media (max-width:640px){
     .nav-in{gap:8px;padding:10px 16px}
     .brand{font-size:14px}
-    .inap{padding:6px 10px;font-size:13px}
-    .inap .ext{display:none}
+    .nlink{padding:6px 10px;font-size:13px}
+    .nlink .ext{display:none}
     .today{font-size:13px}
     .today .dl{display:none}
     .today .ds{display:inline}
@@ -273,13 +294,12 @@
     .p-stat b{font-size:17px}
     .list{padding:6px}
     .row{flex-wrap:wrap;gap:10px 12px;padding:12px 10px;align-items:flex-start}
-    .ttext{flex:1 1 calc(100% - 52px);padding-top:6px}
-    .acts{margin-left:48px}
+    .ttext{flex:1 1 calc(100% - 82px);padding-top:6px}
+    .acts{margin-left:34px;flex-wrap:wrap}
+    .grip{width:22px}
     .tmeta{gap:5px}
     .pg{padding-right:8px}
     .pg input{width:34px}
-    .mt{padding:0 9px 0 7px;gap:5px}
-    .mt svg{width:14px;height:14px}
     .tg{height:34px;font-size:13px;padding:0 10px 0 7px}
     .tg .lf{display:none}
   }
@@ -289,11 +309,12 @@
   }
 
   /* ================= VARIANTE: Tabla ================= */
-  /* nav con INAP centrado */
+  /* nav con INAP y THEA centrados */
+  .nav-links{justify-self:center;display:flex;align-items:center;gap:8px}
   .nav-c{display:grid;grid-template-columns:1fr auto 1fr;gap:12px}
   .nav-c .brand{margin-right:0;justify-self:start}
   .nav-r{justify-self:end;display:flex;align-items:center;gap:12px}
-  .inap{padding:7px 18px;letter-spacing:.04em;font-weight:700}
+  .nlink{padding:7px 18px;letter-spacing:.04em;font-weight:700}
   .theme-btn{width:36px;height:36px;border-radius:10px;border:1px solid var(--border-hi);display:grid;place-items:center;flex:none;transition:border-color .2s}
   .theme-btn:hover{border-color:var(--text)}
   .theme-btn svg{width:18px;height:18px}
@@ -398,7 +419,7 @@
 
   /* ================= PLAZOS: panel con pestañas ================= */
   .plazo{background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);box-shadow:var(--shadow);overflow:hidden}
-  .ptabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-bottom:1px solid var(--border);background:var(--surface-2)}
+  .ptabs{display:grid;grid-template-columns:minmax(0,1fr);border-bottom:1px solid var(--border);background:var(--surface-2)}
   .ptab{--t:var(--c-a);display:flex;align-items:center;gap:8px;padding:14px 18px;font-size:15px;font-weight:600;color:var(--muted);
     border-bottom:3px solid transparent;margin-bottom:-1px;transition:color .2s,background .2s,border-color .2s;min-width:0}
   .ptab[data-k="b"]{--t:var(--c-b)} .ptab[data-k="r"]{--t:var(--c-r)}
@@ -407,7 +428,7 @@
   .ptab .pt-n{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .ptab .pt-c{margin-left:auto;font-size:13px;font-variant-numeric:tabular-nums;color:var(--muted)}
   .ptab:hover{color:var(--text)}
-  .ptab[aria-selected="true"]{background:var(--surface);color:var(--text);border-bottom-color:var(--t)}
+  .ptab.cur{background:var(--surface);color:var(--text);border-bottom-color:var(--t)}
   .pz-body{--acc:var(--c-a);--acc-ink:var(--c-a-ink);--acc-soft:var(--soft-a);--on-acc:var(--on-a);padding:28px 28px 26px}
   .pz-body[data-k="b"]{--acc:var(--c-b);--acc-ink:var(--c-b-ink);--acc-soft:var(--soft-b);--on-acc:var(--on-b)}
   .pz-body[data-k="r"]{--acc:var(--c-r);--acc-ink:var(--c-r-ink);--acc-soft:var(--soft-r);--on-acc:var(--on-r)}
@@ -485,20 +506,9 @@
   .wk-x span:last-child{display:flex;justify-content:flex-end}
   .wk-bar{width:min(100%,30px)}
   @media (max-width:640px){ .wk-x span.skm{visibility:hidden} .wk-x span{overflow:visible} .wk-n{font-size:10px} .wk-plot,.wk-x{gap:3px} .wk-bar{border-radius:6px 6px 3px 3px} }
-  /* resúmenes */
-  .rgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 28px;margin-top:22px}
-  .rg-b{display:flex;gap:12px;align-items:flex-start;min-width:0}
-  .rg-l{width:26px;flex:none;font-size:12px;font-weight:700;color:var(--muted);padding-top:8px}
-  .rg-c{display:flex;flex-wrap:wrap;gap:6px}
-  .rg-t{width:34px;height:34px;border-radius:11px;display:grid;place-items:center;font-size:12px;font-weight:700;color:var(--muted);
-    background:var(--surface-2);transition:transform .15s,box-shadow .2s}
-  .rg-t:hover{transform:translateY(-1px);box-shadow:0 0 0 2px var(--acc)}
-  .rg-t.on{background:linear-gradient(160deg,#ffe066,#ff9f0a);color:#3b2604;box-shadow:0 4px 10px -6px #ff9f0a}
   @media (max-width:900px){ .pz-top{grid-template-columns:1fr;justify-items:center} .pz-main{width:100%} }
   @media (max-width:640px){
-    .ptab{padding:10px 8px;font-size:13px;flex-direction:column;align-items:flex-start;gap:2px}
-    .ptab i{display:none}
-    .ptab .pt-c{margin-left:0;font-size:12px}
+    .ptab{padding:12px 16px;font-size:14px}
     .pz-body{padding:22px 16px 18px}
     .pz-h{font-size:24px}
     .rings{width:170px;height:170px}
@@ -509,7 +519,6 @@
     .tile .v b{font-size:24px}
     .tile .v span{font-size:11px}
     .wk-plot,.wk-x{gap:6px}
-    .rgrid{grid-template-columns:1fr}
   }
 
   /* ================= BLOQUES: tarjetas con borde y textura ================= */
@@ -549,10 +558,14 @@
 
   /* checklist en tabla */
   @media (min-width:760px){
-    .thead{display:grid;grid-template-columns:40px minmax(0,1fr) 104px 104px 104px;gap:14px;padding:10px 20px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);border-bottom:1px solid var(--border);position:sticky;top:61px;z-index:5}
-    .thead span:nth-child(n+3){text-align:center}
+    .thead{display:grid;grid-template-columns:24px 40px minmax(0,1fr) 104px 104px 104px;gap:12px;padding:8px 20px 8px 12px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);border-bottom:1px solid var(--border);position:sticky;top:61px;z-index:5}
+    .thead>span:nth-child(4){text-align:center}
+    .thead>span:not(.th-all){display:block}
+    .thead .bt{justify-self:center}
+    .th-all{display:none}
     .list{padding:0}
-    .row{display:grid;grid-template-columns:40px minmax(0,1fr) 104px 104px 104px;gap:14px;padding:12px 20px;border-radius:0}
+    .row{display:grid;grid-template-columns:24px 40px minmax(0,1fr) 104px 104px 104px;gap:12px;padding:12px 20px 12px 12px;border-radius:0}
+    .row.dragging{border-radius:var(--r-sm)}
     .acts{display:contents}
     .tg{justify-content:center;border:0;background:transparent;height:44px;padding:0;border-radius:var(--r-sm)}
     .tg:hover{background:var(--surface-2)}
@@ -570,7 +583,8 @@
     .nav-c{gap:8px;padding:10px 12px}
     .brand{font-size:15px}
     .nav-r{gap:8px}
-    .inap{padding:6px 14px}
+    .nav-links{gap:6px}
+    .nlink{padding:6px 12px}
     .theme-btn{width:32px;height:32px}
     .band{padding-bottom:32px}
     .band-blocks{padding-top:32px}
@@ -580,11 +594,17 @@
     .t-ring{display:none}
     .panel{margin-top:0}
   }
+  @media (max-width:340px){ .today{display:none} }
   @media (max-width:380px){
     .nav-c{gap:6px;padding:10px}
     .nav-r{gap:6px}
+    .nav-links{gap:5px}
     .brand{font-size:14px}
-    .inap{padding:5px 10px;font-size:12px}
+    .thead{padding:8px 10px;gap:2px}
+    .th-all{font-size:12px}
+    .bt{padding:0 5px;gap:5px;letter-spacing:0}
+    .acts{margin-left:0}
+    .nlink{padding:5px 10px;font-size:12px}
     .today{font-size:12px}
     .theme-btn{width:30px;height:30px}
   }
@@ -596,7 +616,10 @@
 <nav class="nav" aria-label="Principal">
   <div class="nav-in nav-c">
     <a class="brand" href="#top" aria-label="OposiTAI, inicio"><span class="brace">{</span><span class="grad">OposiTAI</span><span class="brace">}</span></a>
-    <a class="inap" href="https://sede.inap.gob.es/es/procedimientos-y-servicios/seleccion/procesos-selectivos-de-cuerpos-y-escalas-generales/cuerpo-de-tecnicos-auxiliares-de-informatica-de-la-administracion-del-estado" target="_blank" rel="noopener noreferrer" aria-label="INAP: proceso selectivo TAI (se abre en otra pestaña)">INAP</a>
+    <div class="nav-links">
+      <a class="nlink" href="https://sede.inap.gob.es/es/procedimientos-y-servicios/seleccion/procesos-selectivos-de-cuerpos-y-escalas-generales/cuerpo-de-tecnicos-auxiliares-de-informatica-de-la-administracion-del-estado" target="_blank" rel="noopener noreferrer" aria-label="INAP: proceso selectivo TAI (se abre en otra pestaña)">INAP</a>
+      <a class="nlink" href="https://www.thea.study" target="_blank" rel="noopener noreferrer" aria-label="THEA (se abre en otra pestaña)">THEA</a>
+    </div>
     <div class="nav-r"><time class="today" id="today"></time><button class="theme-btn" id="themeBtn" type="button" aria-label="Cambiar entre modo claro y oscuro"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 3.5v17a8.5 8.5 0 0 0 0-17z" fill="currentColor"/></svg></button></div>
   </div>
 </nav>
@@ -606,8 +629,8 @@
     <h1 class="title" aria-label="Mi temario"><span class="tt" aria-hidden="true">Mi temario</span><span class="dot" aria-hidden="true">.</span></h1>
   </header>
   <section id="plazos" class="plazo" aria-label="Plazos">
-    <div class="ptabs" role="tablist" aria-label="Fases" id="ptabs"></div>
-    <div class="pz-body" id="pzBody" role="tabpanel"></div>
+    <div class="ptabs" id="ptabs"></div>
+    <div class="pz-body" id="pzBody"></div>
   </section>
   </div>
 </div>
@@ -624,12 +647,6 @@
   <div class="foot">
     <span>© <span id="year"></span> OposiTAI · Web creada por</span>
     <a href="https://github.com/ATKLA" target="_blank" rel="noopener noreferrer" aria-label="ATKLA en GitHub"><svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span><span class="brace">{</span><span class="grad">ATKLA</span><span class="brace">}</span></span></a>
-  </div>
-  <div class="backup">
-    <span>El progreso se guarda solo en este navegador.</span>
-    <button type="button" class="bk" id="bkExport">Exportar copia</button>
-    <button type="button" class="bk" id="bkImport">Importar copia</button>
-    <input type="file" id="bkFile" accept="application/json,.json" hidden>
   </div>
 </footer>
 <script>
@@ -683,10 +700,8 @@ const TOTAL = DATA.reduce((s,b)=>s+b.temas.length,0);
 /* ================= PLAZOS (edita aquí si cambian) =================
    Los colores viven en CSS (--c-a, --c-b, --c-r). THEME (arriba del script) solo define degradados y confeti. */
 const PHASES = [
-  {k:"a", name:"1ª lectura", deadline:"2026-12-18"},
-  {k:"b", name:"2ª lectura", deadline:"2027-04-30"}
+  {k:"a", name:"1ª lectura", deadline:"2026-12-18"}
 ];
-const RES = {k:"r", name:"Resúmenes"};
 /* ritmo previsto para las lecturas: páginas al día de media. Es el valor por defecto; el que
    elijas desde la pestaña de cada lectura se guarda en este navegador y tiene prioridad. */
 const PPD = 20;
@@ -695,6 +710,7 @@ const PPD_MAX = 500;
 /* ================= ALMACENAMIENTO ================= */
 const KEY="tai2026-progress-v1", UI_KEY="tai2026-ui-v5", START_KEY="tai2026-start";
 const HERE_KEY="tai2026-here-v2", HERE_OLD_KEY="tai2026-here", DL_KEY="tai2026-deadlines", PACE_KEY="tai2026-pace";
+const ORDER_KEY="tai2026-order";
 const ISO=/^\d{4}-\d{2}-\d{2}$/;
 const isISO=v=>typeof v==="string"&&ISO.test(v);
 function load(k,d){ try{ const v=localStorage.getItem(k); return v==null?d:JSON.parse(v); }catch(e){ return d; } }
@@ -704,8 +720,7 @@ function store(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(e){}
 const DEFAULT_DL=PHASES.map(p=>p.deadline);
 function loadDeadlines(){
   const s=load(DL_KEY,{})||{};
-  const a=isISO(s.a)?s.a:DEFAULT_DL[0], b=isISO(s.b)?s.b:DEFAULT_DL[1];
-  [PHASES[0].deadline,PHASES[1].deadline] = a<b ? [a,b] : DEFAULT_DL;
+  PHASES[0].deadline=isISO(s.a)?s.a:DEFAULT_DL[0];
 }
 loadDeadlines();
 
@@ -789,16 +804,32 @@ function setHere(id){
 }
 function loadStart(){ const s=load(START_KEY,null); return isISO(s)?s:toISO(today()); }
 let ui=load(UI_KEY,{tab:"b1"});
+
+/* orden de lectura por bloque: { b4:[7,1,2,…] } con los números oficiales de los temas.
+   Solo cambia el orden en que se muestran; cada tema conserva su número y su progreso. */
+function normOrder(raw){
+  const out={};
+  if(!raw||typeof raw!=="object") return out;
+  DATA.forEach(b=>{
+    const o=raw[b.id], len=b.temas.length;
+    if(Array.isArray(o)&&o.length===len&&new Set(o).size===len&&o.every(n=>Number.isInteger(n)&&n>=1&&n<=len)&&o.some((n,i)=>n!==i+1)) out[b.id]=o.slice();
+  });
+  return out;
+}
+let order=normOrder(load(ORDER_KEY,{}));
+const orderOf=b=>order[b.id]||b.temas.map((_,i)=>i+1);
+function saveOrder(b,o){ if(o.every((n,i)=>n===i+1)) delete order[b.id]; else order[b.id]=o; store(ORDER_KEY,order); }
 let start=loadStart();
 store(START_KEY,start); store(KEY,state); store(HERE_KEY,here);
 
-/* recarga todo desde localStorage (otra pestaña abierta o importación) */
+/* recarga todo desde localStorage (otra pestaña abierta) */
 function reloadFromStorage(){
   state=normalize(load(KEY,{}));
   here=normHere(load(HERE_KEY,{}));
   start=loadStart();
   loadDeadlines();
   loadPace();
+  order=normOrder(load(ORDER_KEY,{}));
 }
 
 const get=id=>state[id]||{...EMPTY};
@@ -878,8 +909,7 @@ function openDL(k){
   const inp=document.getElementById(`dli-${k}`);
   inp.value=p.deadline;
   const addDay=(iso,n)=>{const d=fromISO(iso);d.setDate(d.getDate()+n);return toISO(d);};
-  if(i===0){ inp.min=start; inp.max=addDay(PHASES[1].deadline,-1); }
-  else{ inp.min=addDay(PHASES[0].deadline,1); inp.removeAttribute("max"); }
+  inp.min=i===0?start:addDay(PHASES[i-1].deadline,1);
   document.getElementById(`wdl-${k}`).hidden=true;
   document.getElementById(`dlf-${k}`).hidden=false;
   inp.focus();
@@ -892,10 +922,8 @@ function closeDL(k){
 function saveDL(k,v){
   const i=PHASES.findIndex(p=>p.k===k);
   if(!/^\d{4}-\d{2}-\d{2}$/.test(v)){ toast("Elige una fecha válida"); return; }
-  if(i===0&&v>=PHASES[1].deadline){ toast("La 1ª lectura tiene que acabar antes que la 2ª"); return; }
-  if(i===1&&v<=PHASES[0].deadline){ toast("La 2ª lectura tiene que acabar después de la 1ª"); return; }
   PHASES[i].deadline=v;
-  store(DL_KEY,{a:PHASES[0].deadline,b:PHASES[1].deadline});
+  store(DL_KEY,{...(load(DL_KEY,{})||{}),[PHASES[i].k]:v});
   closeDL(k); update();
   toast(`${PHASES[i].name}: nueva fecha límite el ${fmt(fromISO(v))}`);
 }
@@ -930,7 +958,6 @@ document.addEventListener("keydown",e=>{
   const f=e.target.closest&&e.target.closest(".dl-form"); if(f) closeDL(f.dataset.k);
 });
 /* ================= PLAZOS: panel con pestañas ================= */
-const PTABS=[{k:"a",name:PHASES[0].name},{k:"r",name:RES.name},{k:"b",name:PHASES[1].name}];
 const pl=n=>`${n} ${n===1?"día":"días"}`;
 const perWeek=x=>`${n1(x)} ${n1(x)==="1"?"tema":"temas"}/semana`;
 
@@ -1062,14 +1089,6 @@ function weeks(p,f){
     </div>`;
 }
 
-/* resúmenes: un cuadro por tema, agrupados por bloque; pulsar lleva al tema */
-function resGrid(){
-  return `<div class="rgrid">${DATA.map(b=>`<div class="rg-b"><span class="rg-l">${b.roman}</span><div class="rg-c">${
-    b.temas.map((t,i)=>{ const id=`${b.id}-${i+1}`, on=get(id).r;
-      return `<button type="button" class="rg-t${on?" on":""}" data-goto="${id}" title="Bloque ${b.roman} · tema ${i+1}${on?" · resumido":""}" aria-label="Bloque ${b.roman}, tema ${i+1}: ${on?"resumido":"sin resumir"}. Ir al tema"><span>${i+1}</span></button>`;
-    }).join("")}</div></div>`).join("")}</div>`;
-}
-
 /* anima de lo que había a lo nuevo */
 function animateIn(root){
   requestAnimationFrame(()=>requestAnimationFrame(()=>{
@@ -1078,28 +1097,11 @@ function animateIn(root){
   }));
 }
 
-function renderPlazo(infos,activeIdx){
-  if(!ui.ptab||!PTABS.some(t=>t.k===ui.ptab)) ui.ptab=activeIdx<0?"r":PHASES[activeIdx].k;
-  const cur=ui.ptab;
-  document.getElementById("ptabs").innerHTML=PTABS.map(t=>{
-    const n=count(t.k), sel=t.k===cur;
-    return `<button type="button" class="ptab" role="tab" id="ptab-${t.k}" data-ptab="${t.k}" data-k="${t.k}" aria-selected="${sel}" aria-controls="pzBody" tabindex="${sel?0:-1}">
-      <i></i><span class="pt-n">${t.name}</span><span class="pt-c">${n}/${TOTAL}</span></button>`;
-  }).join("");
+function renderPlazo(infos){
+  const cur=PHASES[0].k;
+  document.getElementById("ptabs").innerHTML=`<div class="ptab cur" data-k="${cur}"><i></i><span class="pt-n">${PHASES[0].name}</span><span class="pt-c">${count(cur)}/${TOTAL}</span></div>`;
   const body=document.getElementById("pzBody");
-  body.dataset.k=cur; body.setAttribute("aria-labelledby",`ptab-${cur}`);
-  if(cur==="r"){
-    const n=count("r");
-    body.innerHTML=`<div class="pz-top">
-        ${ringBlock("r",n,null,`<div class="ring-leg"><span><i></i>Resumidos <b>${Math.round(n/TOTAL*100)} %</b></span></div>`)}
-        <div class="pz-main">
-          <p class="pz-eyebrow">Sin fecha límite</p>
-          <p class="pz-h ${n===TOTAL?"ok":""}">${n===TOTAL?"Todos <em>resumidos</em>":`<em>${TOTAL-n}</em> temas por resumir`}</p>
-          ${resGrid()}
-        </div>
-      </div>`;
-    animateIn(body); return;
-  }
+  body.dataset.k=cur;
   const i=PHASES.findIndex(p=>p.k===cur), p=PHASES[i], f=infos[i], v=phaseView(p,f);
   const P=f.P, byPg=P.ok, frac=byPg?(P.total?P.done/P.total:0):f.done/TOTAL;
   const legend=`<div class="ring-leg"><span><i></i>Leído <b>${Math.round(frac*100)} %</b></span><span><i></i>Plazo <b>${Math.round(f.t*100)} %</b></span></div>`;
@@ -1117,10 +1119,6 @@ function renderPlazo(infos,activeIdx){
     </div>
     ${f.started&&f.left>0&&byPg?weeks(p,f):""}`;
   animateIn(body);
-}
-function selectPtab(k,focus){
-  ui.ptab=k; store(UI_KEY,ui); update();
-  if(focus) document.getElementById(`ptab-${k}`).focus();
 }
 
 function renderTabs(){
@@ -1141,10 +1139,10 @@ function renderTabs(){
 }
 
 const ICON_CHECK=`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg>`;
-const LABELS={a:["1ª"," lectura"],b:["2ª"," lectura"],r:["Resumen",""]};
-const ICON_DIG=`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></svg>`;
-const ICON_FCH=`<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="3" width="14" height="14" rx="2"/><path d="M17 21H5a2 2 0 0 1-2-2V7"/></svg>`;
-const ICON_OK=`<svg class="ck" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg>`;
+const LABELS={a:["1ª"," lectura"]};
+const MATS={dig:{label:"Digital",name:"temario digital"},fch:{label:"Fichas",name:"fichas"}};
+const ICON_GRIP=`<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="5.5" cy="3.5" r="1.4"/><circle cx="10.5" cy="3.5" r="1.4"/><circle cx="5.5" cy="8" r="1.4"/><circle cx="10.5" cy="8" r="1.4"/><circle cx="5.5" cy="12.5" r="1.4"/><circle cx="10.5" cy="12.5" r="1.4"/></svg>`;
+const ICON_MIX=`<svg class="i-mx" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 8h8"/></svg>`;
 
 function renderPanel(){
   const b=DATA.find(x=>x.id===ui.tab)||DATA[0];
@@ -1157,28 +1155,31 @@ function renderPanel(){
       <h3 class="p-title">${b.title}</h3>
       <div class="p-stats">
         <div class="p-stat" data-k="a"><small>1ª lectura</small><b id="ps-a"></b><div class="mini"><i id="pm-a"></i></div></div>
-        <div class="p-stat" data-k="r"><small>Resúmenes</small><b id="ps-r"></b><div class="mini"><i id="pm-r"></i></div></div>
-        <div class="p-stat" data-k="b"><small>2ª lectura</small><b id="ps-b"></b><div class="mini"><i id="pm-b"></i></div></div>
       </div>
       <p class="p-mat" id="pmat"></p>
       <p class="p-hint">${ICON_BM}<span>Pulsa el número de un tema para marcar por dónde vas en este bloque.</span></p>
+      <p class="p-hint">${ICON_GRIP}<span>Arrastra un tema por el asa para ordenar cómo vas a leerlo.</span><button type="button" class="p-reset" id="orderReset" data-reset-order hidden>Orden original</button></p>
     </div>
-    <div class="thead" aria-hidden="true"><span>#</span><span>Tema</span><span>1ª lectura</span><span>Resumen</span><span>2ª lectura</span></div>
+    <div class="thead">
+      <span aria-hidden="true"></span><span aria-hidden="true">#</span><span aria-hidden="true">Tema</span><span aria-hidden="true">1ª lectura</span>
+      <span class="th-all">Todo el bloque</span>
+      ${Object.entries(MATS).map(([m,x])=>`<button type="button" class="bt" data-blkmat="${m}" aria-pressed="false"><span class="box">${ICON_CHECK.replace("<svg ","<svg class=\"i-ck\" ")}${ICON_MIX}</span>${x.label}</button>`).join("")}
+    </div>
     <ul class="list">
-      ${b.temas.map((t,i)=>{
-        const id=`${b.id}-${i+1}`;
-        const btn=k=>`<button class="tg" data-id="${id}" data-k="${k}" aria-pressed="false" aria-label="Tema ${i+1}: ${k==="r"?"resumen hecho":LABELS[k].join("")}"><span class="box">${ICON_CHECK}</span><span class="lb"><span class="lx">${LABELS[k][0]}</span><span class="lf">${LABELS[k][1]}</span></span></button>`;
-        return `<li class="row" id="row-${id}" style="animation-delay:${i*25}ms">
-          <button type="button" class="num" data-here="${id}" aria-pressed="false" aria-label="Tema ${i+1}: marcar por dónde vas" title="Marcar por dónde vas"><span class="n">${i+1}</span>${ICON_BM}</button>
+      ${orderOf(b).map((n,pos)=>{
+        const t=b.temas[n-1], id=`${b.id}-${n}`;
+        const btn=k=>`<button type="button" class="tg" data-id="${id}" data-k="${k}" aria-pressed="false" aria-label="Tema ${n}: ${LABELS[k].join("")}"><span class="box">${ICON_CHECK}</span><span class="lb"><span class="lx">${LABELS[k][0]}</span><span class="lf">${LABELS[k][1]}</span></span></button>`;
+        const mat=m=>`<button type="button" class="tg" data-id="${id}" data-mat="${m}" aria-pressed="false" aria-label="Tema ${n}: ${MATS[m].name}" title="${MATS[m].name[0].toUpperCase()+MATS[m].name.slice(1)}"><span class="box">${ICON_CHECK}</span><span class="lb"><span class="lx">${MATS[m].label}</span></span></button>`;
+        return `<li class="row" id="row-${id}" data-n="${n}" style="animation-delay:${pos*25}ms">
+          <button type="button" class="grip" aria-label="Tema ${n}: mover. Usa las flechas arriba y abajo" title="Arrastrar para ordenar">${ICON_GRIP}</button>
+          <button type="button" class="num" data-here="${id}" aria-pressed="false" aria-label="Tema ${n}: marcar por dónde vas" title="Marcar por dónde vas"><span class="n">${n}</span>${ICON_BM}</button>
           <div class="ttext"><div class="ttitle">${t}</div>
             <div class="tmeta">
-              <label class="pg" title="Número de páginas del tema"><input type="number" inputmode="numeric" min="1" max="9999" step="1" placeholder="—" data-pg="${id}" aria-label="Tema ${i+1}: número de páginas">págs</label>
-              <button type="button" class="mt" data-mat="dig" data-id="${id}" aria-pressed="false" aria-label="Tema ${i+1}: temario digital">${ICON_DIG}${ICON_OK}Digital</button>
-              <button type="button" class="mt" data-mat="fch" data-id="${id}" aria-pressed="false" aria-label="Tema ${i+1}: fichas">${ICON_FCH}${ICON_OK}Fichas</button>
-              <label class="hp" title="Página por la que vas en este tema">${ICON_BM}<span>Vas por la pág.</span><input type="number" inputmode="numeric" min="1" max="9999" step="1" placeholder="—" data-hp="${id}" aria-label="Tema ${i+1}: página por la que vas"><span class="hp-of"></span></label>
+              <label class="pg" title="Número de páginas del tema"><input type="number" inputmode="numeric" min="1" max="9999" step="1" placeholder="—" data-pg="${id}" aria-label="Tema ${n}: número de páginas">págs</label>
+              <label class="hp" title="Página por la que vas en este tema">${ICON_BM}<span>Vas por la pág.</span><input type="number" inputmode="numeric" min="1" max="9999" step="1" placeholder="—" data-hp="${id}" aria-label="Tema ${n}: página por la que vas"><span class="hp-of"></span></label>
             </div>
             <div class="tstate"></div></div>
-          <div class="acts">${btn("a")}${btn("r")}${btn("b")}</div>
+          <div class="acts">${btn("a")}${mat("dig")}${mat("fch")}</div>
         </li>`;
       }).join("")}
     </ul>`;
@@ -1201,34 +1202,31 @@ function countTo(el,to){
 function stateHTML(s,h){
   const out=[];
   if(h) out.push(`<span class="here-tag"><i style="background:var(--phase)"></i>Vas por aquí · desde el ${fmt(fromISO(h.since))}${h.pag?` · pág. ${h.pag} el ${fmt(fromISO(h.pd))}`:""}</span>`);
-  if(!s.a&&!s.b&&!s.r) return out.length?out.join(""):`<span>Pendiente</span>`;
-  if(s.a) out.push(`<span><i style="background:var(--c-a)"></i>1ª${s.da?" · "+fmt(fromISO(s.da)):""}</span>`);
-  if(s.r) out.push(`<span><i style="background:var(--c-r)"></i>Resumen${s.dr?" · "+fmt(fromISO(s.dr)):""}</span>`);
-  if(s.b) out.push(`<span><i style="background:var(--c-b)"></i>2ª${s.db?" · "+fmt(fromISO(s.db)):""}</span>`);
+  if(!s.a) return out.length?out.join(""):`<span>Pendiente</span>`;
+  out.push(`<span><i style="background:var(--c-a)"></i>1ª${s.da?" · "+fmt(fromISO(s.da)):""}</span>`);
   return out.join("");
 }
 
 /* ================= UPDATE ================= */
 function update(){
   const infos=PHASES.map(phaseInfo);
-  const activeIdx=infos.findIndex(f=>f.left>0);
-  renderPlazo(infos,activeIdx);
+  renderPlazo(infos);
 
-  /* el color de progreso de bloques = fase activa */
-  const k=activeIdx<0?"b":PHASES[activeIdx].k, kName=activeIdx<0?PHASES[1].name:PHASES[activeIdx].name;
+  /* el color de progreso de bloques = 1ª lectura */
+  const k=PHASES[0].k, kName=PHASES[0].name;
   document.documentElement.style.setProperty("--phase",`var(--c-${k})`);
   document.getElementById("tabHint").innerHTML=`<i></i>Progreso de la ${kName}`;
   DATA.forEach(b=>{
     const len=b.temas.length,c=count(k,b);
     const r=document.getElementById(`tr-${b.id}`); r.style.strokeDashoffset=r.dataset.c*(1-c/len);
     const h=here[b.id], tab=document.getElementById(`tab-${b.id}`);
-    document.getElementById(`tc-${b.id}`).innerHTML=`${c}/${len} leídos · ${count("r",b)} res.`+(h?`<span class="sr">, vas por el tema ${h.n}</span>`:"");
+    document.getElementById(`tc-${b.id}`).innerHTML=`${c}/${len} leídos`+(h?`<span class="sr">, vas por el tema ${h.n}</span>`:"");
     tab.classList.toggle("has-here",!!h);
     tab.querySelector(".t-here-n").textContent=h?h.n:"";
   });
 
   const b=DATA.find(x=>x.id===ui.tab)||DATA[0], len=b.temas.length;
-  ["a","r","b"].forEach(key=>{
+  ["a"].forEach(key=>{
     const c=count(key,b);
     document.getElementById(`ps-${key}`).textContent=`${c}/${len}`;
     document.getElementById(`pm-${key}`).style.width=(c/len*100)+"%";
@@ -1244,17 +1242,23 @@ function update(){
     const hp=row.querySelector("[data-hp]"), hh=hereOf(id);
     if(document.activeElement!==hp) hp.value=hh&&hh.pag?hh.pag:"";
     row.querySelector(".hp-of").textContent=s.pg?`de ${s.pg}`:"";
-    row.querySelectorAll(".mt").forEach(m=>{ const on=!!s[m.dataset.mat]; m.classList.toggle("on",on); m.setAttribute("aria-pressed",on); });
-    row.classList.toggle("ra",s.a&&!s.b);
-    row.classList.toggle("rb",s.b);
+    row.classList.toggle("ra",s.a);
     const h=hereOf(id), isHere=!!h;
     row.classList.toggle("here",isHere);
     const nb=row.querySelector(".num"); nb.setAttribute("aria-pressed",isHere);
     nb.setAttribute("aria-label",`Tema ${i+1}: ${isHere?"quitar marca de por dónde vas":"marcar por dónde vas"}`);
     nb.title=isHere?"Quitar marca":"Marcar por dónde vas";
     row.querySelector(".tstate").innerHTML=stateHTML(s,h);
-    row.querySelectorAll(".tg").forEach(t=>{ const on=!!s[t.dataset.k]; t.classList.toggle("on",on); t.setAttribute("aria-pressed",on); });
+    row.querySelectorAll(".tg").forEach(t=>{ const on=!!s[t.dataset.k||t.dataset.mat]; t.classList.toggle("on",on); t.setAttribute("aria-pressed",on); });
   });
+  /* marcar o desmarcar todo el bloque: marcado, a medias o sin marcar */
+  document.querySelectorAll("[data-blkmat]").forEach(bt=>{
+    const m=bt.dataset.blkmat, c=b.temas.filter((_,i)=>get(`${b.id}-${i+1}`)[m]).length;
+    bt.setAttribute("aria-pressed",c===len?"true":c?"mixed":"false");
+    bt.setAttribute("aria-label",`${MATS[m].name[0].toUpperCase()+MATS[m].name.slice(1)}: ${c} de ${len} temas. ${c===len?"Desmarcar":"Marcar"} todo el bloque`);
+    bt.title=`${c}/${len} · ${c===len?"Desmarcar":"Marcar"} todo el bloque`;
+  });
+  const rs=document.getElementById("orderReset"); if(rs) rs.hidden=!order[b.id];
 }
 
 /* ================= EFECTOS ================= */
@@ -1295,12 +1299,17 @@ document.addEventListener("click",e=>{
   if(hb){ const id=hb.dataset.here, [bid,n]=id.split("-"), blk=DATA.find(b=>b.id===bid);
     const on=setHere(id);
     toast(on?`Bloque ${blk.roman}: vas por el tema ${n}`:`Bloque ${blk.roman}: marca quitada`); return; }
-  const go=e.target.closest("[data-goto]");
-  if(go){ const id=go.dataset.goto; ui.tab=id.split("-")[0]; store(UI_KEY,ui); renderPanel();
-    const row=document.getElementById(`row-${id}`);
-    row.scrollIntoView({behavior:reduced()?"auto":"smooth",block:"center"});
-    row.classList.remove("flash"); void row.offsetWidth; row.classList.add("flash");
-    row.querySelector(".num").focus({preventScroll:true}); return; }
+  const mt=e.target.closest("[data-mat]");
+  if(mt){ const id=mt.dataset.id, m=mt.dataset.mat, s={...get(id)};
+    s[m]=!s[m]; save(id,s); update(); return; }
+  const bm=e.target.closest("[data-blkmat]");
+  if(bm){ const m=bm.dataset.blkmat, blk=DATA.find(x=>x.id===ui.tab)||DATA[0], ids=blk.temas.map((_,i)=>`${blk.id}-${i+1}`);
+    const all=ids.every(id=>get(id)[m]);
+    ids.forEach(id=>{ const s={...get(id)}; s[m]=!all; save(id,s); });
+    update();
+    toast(`Bloque ${blk.roman}: ${m==="dig"?(all?"temario digital desmarcado":"temario digital marcado"):(all?"fichas desmarcadas":"fichas marcadas")} en todos los temas`); return; }
+  if(e.target.closest("[data-reset-order]")){ const blk=DATA.find(x=>x.id===ui.tab)||DATA[0];
+    delete order[blk.id]; store(ORDER_KEY,order); renderPanel(); toast(`Bloque ${blk.roman}: orden original`); return; }
   const cn=e.target.closest("[data-cancel]"); if(cn){ closeDL(cn.dataset.cancel); return; }
   const ep=e.target.closest("[data-edit-pp]"); if(ep){ openPace(ep.dataset.editPp); return; }
   const cp=e.target.closest("[data-cancel-pp]"); if(cp){ closePace(cp.dataset.cancelPp); return; }
@@ -1331,10 +1340,6 @@ document.addEventListener("click",e=>{
     }
     return;
   }
-  const mt=e.target.closest("[data-mat]");
-  if(mt){ const id=mt.dataset.id, m=mt.dataset.mat, s={...get(id)};
-    s[m]=!s[m]; save(id,s); update(); return; }
-  const pt=e.target.closest("[data-ptab]"); if(pt){ selectPtab(pt.dataset.ptab); return; }
   const tab=e.target.closest(".tab");
   if(tab){ ui.tab=tab.dataset.tab; store(UI_KEY,ui); renderPanel(); }
 });
@@ -1360,12 +1365,6 @@ document.addEventListener("change",e=>{
 document.addEventListener("keydown",e=>{
   if(e.key==="Enter"&&e.target.matches&&e.target.matches("[data-pg],[data-hp]")) e.target.blur();
 });
-document.getElementById("ptabs").addEventListener("keydown",e=>{
-  if(!["ArrowLeft","ArrowRight"].includes(e.key)) return;
-  e.preventDefault();
-  const i=PTABS.findIndex(t=>t.k===ui.ptab), d=e.key==="ArrowRight"?1:-1;
-  selectPtab(PTABS[(i+d+PTABS.length)%PTABS.length].k,true);
-});
 document.getElementById("tabs").addEventListener("keydown",e=>{
   const keys=["ArrowLeft","ArrowRight","ArrowUp","ArrowDown"];
   if(!keys.includes(e.key)) return;
@@ -1374,6 +1373,96 @@ document.getElementById("tabs").addEventListener("keydown",e=>{
   const i=DATA.findIndex(b=>b.id===ui.tab);
   ui.tab=DATA[(i+dir+DATA.length)%DATA.length].id;
   store(UI_KEY,ui); renderPanel(); document.getElementById(`tab-${ui.tab}`).focus();
+});
+
+/* ================= ORDEN DE LECTURA: arrastrar =================
+   Pointer Events (ratón, táctil y lápiz) desde el asa de cada fila. La fila sigue al puntero;
+   las demás se apartan con una animación FLIP. Con el teclado: asa enfocada + flechas. */
+let drag=null;
+/* mueve nodos del DOM y anima los elementos indicados desde su posición anterior */
+function flipMove(els,move){
+  const before=els.map(el=>el.offsetTop);
+  move();
+  if(reduced()) return;
+  els.forEach((el,i)=>{ const d=before[i]-el.offsetTop; if(!d||el===(drag&&drag.row)) return;
+    el.style.transition="none"; el.style.transform=`translateY(${d}px)`;
+    void el.offsetWidth;
+    el.style.transition="transform .22s cubic-bezier(.2,.8,.2,1)"; el.style.transform="";
+    el.addEventListener("transitionend",()=>{ el.style.transition=""; },{once:true});
+  });
+}
+function commitOrder(ul,row,from){
+  const blk=DATA.find(x=>x.id===document.getElementById("temas").dataset.block);
+  const o=[...ul.children].map(li=>+li.dataset.n), to=o.indexOf(+row.dataset.n);
+  if(to===from) return;
+  saveOrder(blk,o); update();
+  toast(`Bloque ${blk.roman}: tema ${row.dataset.n} en la posición ${to+1}`);
+}
+/* zona superior que tapa la lista (nav y cabecera de tabla fijas) */
+function topCover(){
+  let y=document.querySelector(".nav").getBoundingClientRect().bottom;
+  const th=document.querySelector("#temas .thead");
+  if(th&&getComputedStyle(th).position==="sticky") y=Math.max(y,th.getBoundingClientRect().bottom);
+  return Math.min(y,innerHeight/3);
+}
+function dragLayout(){
+  const {row,ul}=drag, first=ul.firstElementChild, last=ul.lastElementChild;
+  let top=drag.y-ul.getBoundingClientRect().top-drag.grab;
+  top=Math.min(Math.max(top,first.offsetTop),last.offsetTop+last.offsetHeight-row.offsetHeight);
+  const mid=top+row.offsetHeight/2;
+  let prev=row.previousElementSibling, next=row.nextElementSibling;
+  while(prev&&mid<prev.offsetTop+prev.offsetHeight/2){ const p=prev; flipMove([p],()=>ul.insertBefore(row,p)); prev=row.previousElementSibling; }
+  while(next&&mid>next.offsetTop+next.offsetHeight/2){ const n=next; flipMove([n],()=>ul.insertBefore(row,n.nextElementSibling)); next=row.nextElementSibling; }
+  row.style.transform=`translateY(${top-row.offsetTop}px)`;
+}
+function dragTick(){
+  if(!drag) return;
+  const zone=72, t=topCover()+zone, b=innerHeight-zone;
+  const v=drag.y<t?-Math.min(16,(t-drag.y)/4):drag.y>b?Math.min(16,(drag.y-b)/4):0;
+  if(v) scrollBy(0,v);
+  dragLayout();
+  drag.raf=requestAnimationFrame(dragTick);
+}
+function endDrag(){
+  if(!drag) return;
+  const {row,ul,from,grip,pid}=drag;
+  cancelAnimationFrame(drag.raf);
+  try{ grip.releasePointerCapture(pid); }catch(_){}
+  drag=null;
+  row.classList.remove("dragging"); document.body.classList.remove("is-dragging");
+  if(!reduced()&&row.style.transform){
+    row.style.transition="transform .18s cubic-bezier(.2,.8,.2,1)";
+    row.addEventListener("transitionend",()=>{ row.style.transition=""; },{once:true});
+  }
+  row.style.transform="";
+  commitOrder(ul,row,from);
+}
+document.addEventListener("pointerdown",e=>{
+  const g=e.target.closest(".grip"); if(!g||e.button>0||drag) return;
+  e.preventDefault();
+  const row=g.closest(".row"), ul=row.parentElement;
+  ul.classList.add("sorted");
+  drag={row,ul,grip:g,pid:e.pointerId,y:e.clientY,from:[...ul.children].indexOf(row),
+    grab:e.clientY-ul.getBoundingClientRect().top-row.offsetTop,raf:0};
+  try{ g.setPointerCapture(e.pointerId); }catch(_){}
+  row.classList.add("dragging"); document.body.classList.add("is-dragging");
+  drag.raf=requestAnimationFrame(dragTick);
+});
+document.addEventListener("pointermove",e=>{ if(drag&&e.pointerId===drag.pid){ drag.y=e.clientY; e.preventDefault(); } });
+document.addEventListener("pointerup",e=>{ if(drag&&e.pointerId===drag.pid) endDrag(); });
+document.addEventListener("pointercancel",e=>{ if(drag&&e.pointerId===drag.pid) endDrag(); });
+/* teclado: con el asa enfocada, las flechas suben o bajan el tema una posición */
+document.addEventListener("keydown",e=>{
+  const g=e.target.closest&&e.target.closest(".grip");
+  if(!g||drag||!["ArrowUp","ArrowDown"].includes(e.key)) return;
+  e.preventDefault();
+  const row=g.closest(".row"), ul=row.parentElement, up=e.key==="ArrowUp";
+  const sib=up?row.previousElementSibling:row.nextElementSibling; if(!sib) return;
+  ul.classList.add("sorted");
+  const from=[...ul.children].indexOf(row);
+  /* se mueve la fila vecina, no la enfocada, para no perder el foco */
+  flipMove([row,sib],()=>ul.insertBefore(sib,up?row.nextElementSibling:row));
+  commitOrder(ul,row,from);
 });
 
 /* fecha de hoy y año del footer */
@@ -1389,37 +1478,12 @@ document.addEventListener("visibilitychange",()=>{ if(!document.hidden){ paintDa
 
 /* otra pestaña con la app abierta cambió datos: recargar para no pisarlos al guardar */
 addEventListener("storage",e=>{
-  if(e.key!==null&&![KEY,HERE_KEY,DL_KEY,START_KEY,PACE_KEY].includes(e.key)) return;
-  reloadFromStorage(); update();
+  if(e.key!==null&&![KEY,HERE_KEY,DL_KEY,START_KEY,PACE_KEY,ORDER_KEY].includes(e.key)) return;
+  const before=JSON.stringify(order);
+  reloadFromStorage();
+  if(drag) return;
+  if(JSON.stringify(order)!==before) renderPanel(); else update();
 });
-
-/* ================= COPIA DE SEGURIDAD ================= */
-function exportData(){
-  const data={app:"OposiTAI",v:1,exported:new Date().toISOString(),
-    progress:state,here,deadlines:{a:PHASES[0].deadline,b:PHASES[1].deadline},pace,start};
-  const url=URL.createObjectURL(new Blob([JSON.stringify(data,null,2)],{type:"application/json"}));
-  const a=document.createElement("a"); a.href=url; a.download=`opositai-${toISO(today())}.json`;
-  document.body.append(a); a.click(); a.remove(); setTimeout(()=>URL.revokeObjectURL(url),1000);
-  toast("Copia descargada");
-}
-function importData(file){
-  const rd=new FileReader();
-  rd.onload=()=>{
-    let d; try{ d=JSON.parse(rd.result); }catch(e){ toast("El archivo no es una copia válida"); return; }
-    if(!d||d.app!=="OposiTAI"||!d.progress||typeof d.progress!=="object"){ toast("El archivo no es una copia de OposiTAI"); return; }
-    if(!confirm("Se sustituirá el progreso de este navegador por el de la copia. ¿Continuar?")) return;
-    store(KEY,normalize(d.progress)); store(HERE_KEY,normHere(d.here));
-    if(d.deadlines&&isISO(d.deadlines.a)&&isISO(d.deadlines.b)&&d.deadlines.a<d.deadlines.b) store(DL_KEY,{a:d.deadlines.a,b:d.deadlines.b});
-    if(isISO(d.start)) store(START_KEY,d.start);
-    if(d.pace&&typeof d.pace==="object") store(PACE_KEY,{a:toPace(d.pace.a)||PPD,b:toPace(d.pace.b)||PPD});
-    reloadFromStorage(); update(); toast("Copia restaurada");
-  };
-  rd.onerror=()=>toast("No se pudo leer el archivo");
-  rd.readAsText(file);
-}
-document.getElementById("bkExport").addEventListener("click",exportData);
-document.getElementById("bkImport").addEventListener("click",()=>document.getElementById("bkFile").click());
-document.getElementById("bkFile").addEventListener("change",e=>{ const f=e.target.files[0]; if(f) importData(f); e.target.value=""; });
 
 paintDate(); renderTabs(); renderPanel();
 
