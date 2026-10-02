@@ -24,6 +24,7 @@
     --shadow:0 1px 2px rgba(24,24,27,.05),0 4px 14px -6px rgba(76,29,149,.10);
     --b1-soft:#e7f6ed;--b1-ink:#166534;--b2-soft:#fdefe3;--b2-ink:#9a4508;
     --b3-soft:#fce9f2;--b3-ink:#be185d;--b4-soft:#f1e9fd;--b4-ink:#7e22ce;--pat-a:20%;--dot-a:7%;
+    --b1:#16a34a;--b2:#ea580c;--b3:#db2777;--b4:#9333ea;--on-blk:#ffffff;
     --r-lg:16px;--r-md:12px;--r-sm:8px;
     --display:"Inter Tight",system-ui,sans-serif;
     --sans:"Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,sans-serif;
@@ -41,7 +42,8 @@
     --ok:#34d399;--warn:#fbbf24;--bad:#f87171;
     --shadow:0 1px 0 rgba(255,255,255,.04) inset,0 8px 24px -12px rgba(0,0,0,.6);
     --b1-soft:#17301f;--b1-ink:#86efac;--b2-soft:#33240f;--b2-ink:#fdba74;
-    --b3-soft:#331a2a;--b3-ink:#f9a8d4;--b4-soft:#281f3d;--b4-ink:#d8b4fe;--pat-a:10%;--dot-a:4%; } }
+    --b3-soft:#331a2a;--b3-ink:#f9a8d4;--b4-soft:#281f3d;--b4-ink:#d8b4fe;--pat-a:10%;--dot-a:4%;
+    --b1:#4ade80;--b2:#fb923c;--b3:#f472b6;--b4:#c084fc;--on-blk:#111114; } }
   :root[data-theme="dark"]{ --scheme:dark;
     --bg:#0f0f12;--band-top:#1b1730;--band-top-line:#2e2849;--band-blocks:#131317;
     --surface:#1f1f25;--surface-2:#2a2a31;--border:#34343c;--border-hi:#4a4a54;
@@ -54,7 +56,8 @@
     --ok:#34d399;--warn:#fbbf24;--bad:#f87171;
     --shadow:0 1px 0 rgba(255,255,255,.04) inset,0 8px 24px -12px rgba(0,0,0,.6);
     --b1-soft:#17301f;--b1-ink:#86efac;--b2-soft:#33240f;--b2-ink:#fdba74;
-    --b3-soft:#331a2a;--b3-ink:#f9a8d4;--b4-soft:#281f3d;--b4-ink:#d8b4fe;--pat-a:10%;--dot-a:4%; }
+    --b3-soft:#331a2a;--b3-ink:#f9a8d4;--b4-soft:#281f3d;--b4-ink:#d8b4fe;--pat-a:10%;--dot-a:4%;
+    --b1:#4ade80;--b2:#fb923c;--b3:#f472b6;--b4:#c084fc;--on-blk:#111114; }
   *{box-sizing:border-box;margin:0;padding:0}
   html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;background:var(--bg);color-scheme:var(--scheme)}
   body{font-family:var(--sans);background:var(--bg);color:var(--text);font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;min-height:100vh;overflow-x:hidden}
@@ -129,7 +132,7 @@
   .section-h{display:flex;justify-content:space-between;align-items:baseline;flex-wrap:wrap;gap:6px 12px;margin:48px 0 14px}
   .section-h h2{font-family:var(--display);font-size:26px;font-weight:800;letter-spacing:-.025em}
   .section-h p{font-size:14px;color:var(--muted);display:inline-flex;align-items:center;gap:7px}
-  .section-h p i{width:10px;height:10px;border-radius:3px;background:var(--phase)}
+  .section-h p i{width:10px;height:10px;border-radius:3px;background:conic-gradient(var(--b1) 0 25%,var(--b2) 0 50%,var(--b3) 0 75%,var(--b4) 0)}
   .tabs{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
   .tab{text-align:left;border-radius:var(--r-md);padding:14px 16px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;gap:12px;transition:border-color .2s,background .2s,box-shadow .2s}
   .tab:hover{border-color:var(--border-hi)}
@@ -144,17 +147,7 @@
   .t-count{font-size:13px;color:var(--muted);margin-top:3px;font-variant-numeric:tabular-nums}
 
   /* ================= PANEL ================= */
-  .panel{margin-top:16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;box-shadow:var(--shadow)}
-  .p-head{padding:22px 24px;border-bottom:1px solid var(--border)}
-  .p-tag{font-size:13px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
-  .p-title{font-family:var(--display);font-size:26px;font-weight:800;letter-spacing:-.025em;line-height:1.15;margin-top:4px}
-  .p-stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:18px;max-width:560px}
-  .p-stat{background:var(--surface-2);border-radius:var(--r-sm);padding:10px 12px}
-  .p-stat small{display:block;font-size:13px;font-weight:600;color:var(--muted)}
-  .p-stat b{font-family:var(--display);font-size:20px;font-weight:800;font-variant-numeric:tabular-nums}
-  .p-stat .mini{height:5px;border-radius:3px;background:var(--track);margin-top:6px;overflow:hidden}
-  .p-stat .mini i{display:block;height:100%;border-radius:3px;transition:width .6s cubic-bezier(.2,.8,.2,1)}
-  #pm-a{background:var(--c-a)} #pm-b{background:var(--c-b)} #pm-r{background:var(--c-r)}
+  .panel{margin-top:16px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r-lg);overflow:hidden;overflow:clip;box-shadow:var(--shadow)}
   .thead{display:none}
   .list{list-style:none;padding:8px}
   .row{display:flex;align-items:center;gap:14px;padding:14px;border-radius:var(--r-sm);transition:background .2s;animation:fadeIn .4s cubic-bezier(.2,.8,.2,1) both}
@@ -167,6 +160,9 @@
   /* tema leído: la fila se oscurece un tono (violeta tras la 1ª lectura, cálido tras la 2ª) */
   .row.ra{background:var(--row-a)}
   .row.ra:hover{background:var(--row-a-hi)}
+  .panel .row.ra{background:color-mix(in srgb,var(--blk) 9%,var(--surface))}
+  .panel .row.ra:hover{background:color-mix(in srgb,var(--blk) 14%,var(--surface))}
+  .panel .row.ra .num{background:color-mix(in srgb,var(--blk) 22%,var(--surface));color:var(--blk-ink)}
   .row.rb{background:var(--row-b)}
   .row.rb:hover{background:var(--row-b-hi)}
   .ttext{flex:1;min-width:0}
@@ -216,26 +212,16 @@
   .hp input::placeholder{color:var(--faint);font-weight:500}
   .hp .hp-of{color:var(--muted)}
   .hp .hp-of:empty{display:none}
-  .p-mat{display:flex;flex-wrap:wrap;gap:6px 18px;margin-top:14px;font-size:13px;color:var(--muted)}
-  .p-mat:empty{display:none}
-  .p-mat b{color:var(--text);font-weight:700;font-variant-numeric:tabular-nums}
   .pz-pages{margin-top:14px;font-size:13px;color:var(--muted)}
   .pz-pages b{color:var(--text);font-variant-numeric:tabular-nums}
 
   /* ================= TEMARIO DIGITAL Y FICHAS ================= */
   /* columnas de material: mismo check que la lectura, con el color del bloque */
-  .tg[data-mat]{--t:var(--blk-ink);--on:var(--surface)}
-  /* cabecera de la tabla: marcar o desmarcar todo el bloque */
-  .thead{display:flex;align-items:center;gap:6px;padding:10px 14px;font-size:12px;font-weight:700;color:var(--muted);background:var(--surface-2);border-bottom:1px solid var(--border)}
-  .thead>span:not(.th-all){display:none}
-  .th-all{margin-right:auto;font-size:13px;font-weight:600;white-space:nowrap}
-  .bt{display:inline-flex;align-items:center;gap:7px;height:32px;padding:0 10px 0 8px;border-radius:8px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);transition:background .2s,color .2s}
-  .bt:hover{background:var(--surface);color:var(--text)}
-  .bt .box{width:18px;height:18px;border-radius:5px;border:1.5px solid var(--ctl);display:grid;place-items:center;flex:none;color:var(--surface);transition:background .2s,border-color .2s}
-  .bt .box svg{width:12px;height:12px;display:none}
-  .bt:hover .box{border-color:var(--blk-ink)}
-  .bt[aria-pressed="true"] .box,.bt[aria-pressed="mixed"] .box{background:var(--blk-ink);border-color:var(--blk-ink)}
-  .bt[aria-pressed="true"] .i-ck,.bt[aria-pressed="mixed"] .i-mx{display:block}
+  .panel .tg[data-k="a"]{--t:var(--t-a);--on:var(--on-blk)}
+  .tg[data-mat="dig"]{--t:var(--t-dig);--on:var(--on-blk)}
+  .tg[data-mat="fch"]{--t:var(--t-fch);--on:var(--on-blk)}
+  .tg[data-mat="imp"]{--t:var(--t-imp);--on:var(--blk-ink)}
+  .ico-print{width:18px;height:18px;flex:none}
 
   /* ================= ORDEN DE LECTURA (arrastrar) ================= */
   .list{position:relative}
@@ -249,7 +235,7 @@
   .row.here.dragging{box-shadow:inset 4px 0 0 var(--phase),0 0 0 1px var(--border-hi),0 14px 30px -12px rgba(0,0,0,.35)}
   .row.dragging .grip{color:var(--text);cursor:grabbing}
   body.is-dragging{cursor:grabbing;-webkit-user-select:none;user-select:none}
-  .p-reset{margin-left:4px;font-size:13px;font-weight:600;padding:2px 10px;border-radius:999px;border:1px solid var(--border-hi);color:var(--text);transition:border-color .2s}
+  .p-reset{font-size:13px;font-weight:600;padding:2px 10px;border-radius:999px;border:1px solid var(--border-hi);color:var(--text);transition:border-color .2s}
   .p-reset:hover{border-color:var(--text)}
   .p-reset[hidden]{display:none}
 
@@ -288,14 +274,10 @@
     .tab{padding:12px;gap:10px}
     .t-ring{width:30px;height:30px}
     .t-name{font-size:14px}
-    .p-head{padding:18px}
-    .p-title{font-size:21px}
-    .p-stat{padding:8px 10px}
-    .p-stat b{font-size:17px}
     .list{padding:6px}
     .row{flex-wrap:wrap;gap:10px 12px;padding:12px 10px;align-items:flex-start}
     .ttext{flex:1 1 calc(100% - 82px);padding-top:6px}
-    .acts{margin-left:34px;flex-wrap:wrap}
+    .acts{margin-left:34px;flex-wrap:wrap;gap:5px}
     .grip{width:22px}
     .tmeta{gap:5px}
     .pg{padding-right:8px}
@@ -321,7 +303,7 @@
   h1{color:var(--text);margin-top:0}
   /* título: Inter Tight 800, entrada "tracking-in" (las letras se juntan y se enfocan) + punto de acento */
   .title{font-size:clamp(46px,8vw,80px);line-height:1;letter-spacing:-.03em;word-spacing:.06em;white-space:nowrap}
-  .section-h h2,.p-title,.w-title{letter-spacing:-.012em}
+  .section-h h2,.w-title{letter-spacing:-.012em}
   .w-count b{letter-spacing:-.02em}
   .title .tt{display:inline-block;animation:trackIn 2s cubic-bezier(.22,1,.36,1) .15s both}
   .title .dot{display:inline-block;color:var(--c-a);transform:scale(0);transform-origin:50% 85%;
@@ -350,8 +332,6 @@
   .t-here svg{width:18px;height:18px;display:block}
   .t-here svg path{fill:currentColor}
   .tab.has-here .t-here{display:flex}
-  .p-hint{display:flex;align-items:center;gap:6px;margin-top:14px;font-size:13px;color:var(--muted)}
-  .p-hint svg{width:14px;height:14px;flex:none}
 
   /* franjas de fondo */
   .band{padding:0 0 44px}
@@ -525,15 +505,24 @@
   .band-blocks{background:
       radial-gradient(color-mix(in srgb,var(--text) var(--dot-a),transparent) 1px,transparent 1.5px) 0 0/18px 18px,
       var(--band-blocks)}
-  .tab[data-tab="b1"],.panel[data-block="b1"]{--blk-soft:var(--b1-soft);--blk-ink:var(--b1-ink);
+  .tab[data-tab="b1"],.panel[data-block="b1"]{--blk:var(--b1);--blk-soft:var(--b1-soft);--blk-ink:var(--b1-ink);
     --pat:radial-gradient(var(--pat-c) 1.3px,transparent 1.8px) 0 0/12px 12px}
-  .tab[data-tab="b2"],.panel[data-block="b2"]{--blk-soft:var(--b2-soft);--blk-ink:var(--b2-ink);
+  .tab[data-tab="b2"],.panel[data-block="b2"]{--blk:var(--b2);--blk-soft:var(--b2-soft);--blk-ink:var(--b2-ink);
     --pat:repeating-linear-gradient(135deg,var(--pat-c) 0 1.2px,transparent 1.2px 9px)}
-  .tab[data-tab="b3"],.panel[data-block="b3"]{--blk-soft:var(--b3-soft);--blk-ink:var(--b3-ink);
+  .tab[data-tab="b3"],.panel[data-block="b3"]{--blk:var(--b3);--blk-soft:var(--b3-soft);--blk-ink:var(--b3-ink);
     --pat:linear-gradient(var(--pat-c) 1px,transparent 1px) 0 0/14px 14px,linear-gradient(90deg,var(--pat-c) 1px,transparent 1px) 0 0/14px 14px}
-  .tab[data-tab="b4"],.panel[data-block="b4"]{--blk-soft:var(--b4-soft);--blk-ink:var(--b4-ink);
+  .tab[data-tab="b4"],.panel[data-block="b4"]{--blk:var(--b4);--blk-soft:var(--b4-soft);--blk-ink:var(--b4-ink);
     --pat:radial-gradient(circle,transparent 2.6px,var(--pat-c) 3px,var(--pat-c) 3.8px,transparent 4.2px) 0 0/16px 16px}
   .tab,.panel{--pat-c:color-mix(in srgb,var(--blk-ink) var(--pat-a),transparent);--blk-line:color-mix(in srgb,var(--blk-ink) var(--blk-line-a,32%),transparent)}
+  /* tonos del bloque, de más a menos intenso: 1ª lectura → digital → fichas → impreso.
+     Todo lo marcado dentro de un bloque (checks, filas leídas, "vas por aquí", barras) sale de su color. */
+  .tab,.panel{
+    --phase:var(--blk);
+    --t-a:color-mix(in srgb,var(--blk-ink) 72%,var(--text));
+    --t-dig:color-mix(in srgb,var(--blk-ink) 50%,var(--blk));
+    --t-fch:var(--blk);
+    --t-imp:color-mix(in srgb,var(--blk) 42%,var(--surface));
+  }
 
   .tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;border:0;overflow:visible}
   .tab{
@@ -549,22 +538,27 @@
   .t-roman{color:var(--blk-ink)}
   .t-ring .bg{stroke:color-mix(in srgb,var(--blk-ink) 16%,transparent)}
 
-  .panel{margin-top:16px;border:1px solid var(--blk-line);border-top:4px solid var(--blk-ink)}
-  .p-head{position:relative;overflow:hidden;isolation:isolate;background:var(--blk-soft);border-bottom-color:var(--blk-line)}
-  .p-head::before{content:"";position:absolute;inset:0;z-index:-1;background:var(--pat);
-    -webkit-mask-image:linear-gradient(100deg,transparent 40%,#000 100%);mask-image:linear-gradient(100deg,transparent 40%,#000 100%)}
-  .p-tag{color:var(--blk-ink)}
-  .p-stat{background:var(--surface);border:1px solid var(--blk-line)}
+  /* la tabla sale directamente de la tarjeta del bloque: flecha de la tarjeta activa al borde del panel */
+  .panel{margin-top:14px;border:1px solid var(--blk-line);border-top:4px solid var(--blk-ink)}
+  .tabs{position:relative}
+  .tcaret{position:absolute;top:100%;left:0;width:0;height:0;margin-left:-9px;
+    border:9px solid transparent;border-top:12px solid var(--c);border-bottom:0;pointer-events:none;
+    transition:left .3s cubic-bezier(.2,.8,.2,1)}
+  .section-h p{margin-left:auto}
+  /* con las tarjetas en 2×2 la flecha caería sobre la fila de abajo: se oculta */
+  @media (max-width:900px){ .tcaret{display:none} }
 
   /* checklist en tabla */
   @media (min-width:760px){
-    .thead{display:grid;grid-template-columns:24px 40px minmax(0,1fr) 104px 104px 104px;gap:12px;padding:8px 20px 8px 12px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);border-bottom:1px solid var(--border);position:sticky;top:61px;z-index:5}
-    .thead>span:nth-child(4){text-align:center}
-    .thead>span:not(.th-all){display:block}
-    .thead .bt{justify-self:center}
-    .th-all{display:none}
+    .thead{display:grid;grid-template-columns:24px 40px minmax(0,1fr) 96px repeat(3,84px);gap:12px;padding:8px 20px 8px 12px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);border-bottom:1px solid var(--border);position:sticky;top:61px;z-index:5}
+    /* cabecera con el color del bloque: separa bien la tabla de la cabecera del panel */
+    .panel .thead{background:color-mix(in srgb,var(--blk) 24%,var(--surface));color:var(--blk-ink);
+      border-bottom:2px solid var(--blk-ink);padding-top:11px;padding-bottom:11px;font-size:12.5px;font-weight:800}
+    .panel .thead .ico-print{width:20px;height:20px;stroke-width:2.2}
+    /* columnas de check: título centrado sobre su casilla */
+    .thead>span:nth-child(n+4){display:flex;align-items:center;justify-content:center;text-align:center}
     .list{padding:0}
-    .row{display:grid;grid-template-columns:24px 40px minmax(0,1fr) 104px 104px 104px;gap:12px;padding:12px 20px 12px 12px;border-radius:0}
+    .row{display:grid;grid-template-columns:24px 40px minmax(0,1fr) 96px repeat(3,84px);gap:12px;padding:12px 20px 12px 12px;border-radius:0}
     .row.dragging{border-radius:var(--r-sm)}
     .acts{display:contents}
     .tg{justify-content:center;border:0;background:transparent;height:44px;padding:0;border-radius:var(--r-sm)}
@@ -592,7 +586,6 @@
     .tabs{grid-template-columns:1fr 1fr;gap:10px}
     .tab{padding:12px;min-height:0;border-radius:var(--r-md)}
     .t-ring{display:none}
-    .panel{margin-top:0}
   }
   @media (max-width:340px){ .today{display:none} }
   @media (max-width:380px){
@@ -600,9 +593,6 @@
     .nav-r{gap:6px}
     .nav-links{gap:5px}
     .brand{font-size:14px}
-    .thead{padding:8px 10px;gap:2px}
-    .th-all{font-size:12px}
-    .bt{padding:0 5px;gap:5px;letter-spacing:0}
     .acts{margin-left:0}
     .nlink{padding:5px 10px;font-size:12px}
     .today{font-size:12px}
@@ -637,7 +627,7 @@
 <div class="band band-blocks">
   <div class="wrap">
   <section id="bloques">
-      <div class="section-h"><h2>Bloques</h2><p id="tabHint"></p></div>
+      <div class="section-h"><h2>Bloques</h2><button type="button" class="p-reset" id="orderReset" data-reset-order hidden></button><p id="tabHint"></p></div>
       <div class="tabs" role="tablist" aria-label="Bloques del temario" id="tabs"></div>
     </section>
   <main class="panel" id="temas" role="tabpanel"></main>
@@ -651,6 +641,9 @@
 </footer>
 <script>
 const THEME={a:["#a78bfa","#7c3aed"],b:["#fb923c","#c2410c"],r:["#fcd34d","#f59e0b"],confetti:["#7c3aed","#a78bfa","#c2410c","#ff7a45","#fbbf24"]};
+/* confeti de cada bloque, en su gama (los colores del CSS viven en --b1…--b4 y --bN-ink) */
+const BLK_FX={b1:["#166534","#16a34a","#4ade80","#bbf7d0"],b2:["#9a4508","#ea580c","#fb923c","#fed7aa"],
+              b3:["#9d174d","#db2777","#f472b6","#fbcfe8"],b4:["#6b21a8","#9333ea","#c084fc","#e9d5ff"]};
 /* ================= TEMARIO ================= */
 const DATA = [
   { id:"b1", roman:"I", short:"Organización del Estado", title:"Organización del Estado y Administración electrónica", temas:[
@@ -745,9 +738,9 @@ const n1=x=>x.toFixed(1).replace(".",",").replace(",0","");
 
 /* ================= ESTADO =================
    state[id] = { a:bool 1ª lectura, b:bool 2ª lectura, r:bool resumen, da, db, dr: fechas,
-                 pg: nº de páginas (entero o null), dig: tengo el temario digital, fch: tengo fichas } */
-const EMPTY={a:false,b:false,r:false,da:null,db:null,dr:null,pg:null,dig:false,fch:false};
-const isEmpty=s=>!s.a&&!s.b&&!s.r&&!s.pg&&!s.dig&&!s.fch;
+                 pg: nº de páginas (entero o null), dig: tengo el temario digital, fch: tengo fichas, imp: lo tengo impreso } */
+const EMPTY={a:false,b:false,r:false,da:null,db:null,dr:null,pg:null,dig:false,fch:false,imp:false};
+const isEmpty=s=>!s.a&&!s.b&&!s.r&&!s.pg&&!s.dig&&!s.fch&&!s.imp;
 const toPages=v=>{ const n=Math.round(Number(v)); return Number.isFinite(n)&&n>0&&n<=9999?n:null; };
 function normalize(raw){
   const out={};
@@ -755,7 +748,7 @@ function normalize(raw){
   for(const [id,v] of Object.entries(raw)){
     let s={...EMPTY};
     if(typeof v==="number"){ s.a=v>=1; s.b=v>=2; s.r=v>=3; }
-    else if(v && typeof v==="object" && ["a","b","r","pg","dig","fch"].some(k=>k in v)){ Object.assign(s,v); }
+    else if(v && typeof v==="object" && ["a","b","r","pg","dig","fch","imp"].some(k=>k in v)){ Object.assign(s,v); }
     else if(v && typeof v==="object"){
       const l=v.l||0, d=Array.isArray(v.d)?v.d:[];
       s.a=l>=1; s.b=l>=2; s.da=d[0]||null; s.db=d[1]||null;
@@ -763,7 +756,7 @@ function normalize(raw){
     }
     /* solo booleanos y fechas AAAA-MM-DD; la 2ª lectura es del resumen, así que lo implica */
     s={a:!!s.a,b:!!s.b,r:!!s.r||!!s.b,da:isISO(s.da)?s.da:null,db:isISO(s.db)?s.db:null,dr:isISO(s.dr)?s.dr:null,
-       pg:toPages(s.pg),dig:!!s.dig,fch:!!s.fch};
+       pg:toPages(s.pg),dig:!!s.dig,fch:!!s.fch,imp:!!s.imp};
     if(!isEmpty(s)) out[id]=s;
   }
   return out;
@@ -1135,14 +1128,18 @@ function renderTabs(){
         <div class="t-name">${b.short}</div>
         <div class="t-count" id="tc-${b.id}"></div>
       </div>
-    </button>`).join("");
+    </button>`).join("")+`<span class="tcaret" id="tcaret" aria-hidden="true"></span>`;
 }
 
 const ICON_CHECK=`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg>`;
 const LABELS={a:["1ª"," lectura"]};
-const MATS={dig:{label:"Digital",name:"temario digital"},fch:{label:"Fichas",name:"fichas"}};
+const ICON_PRINT=`<svg class="ico-print" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9V3.5h10V9"/><path d="M7 17H5.5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H17"/><path d="M7 14h10v6.5H7z"/><path d="M17 12h.01"/></svg>`;
+/* material de cada tema. icon: se muestra en lugar del texto (el texto queda para lectores de pantalla) */
+const MATS={dig:{label:"Digital",name:"temario digital"},
+            fch:{label:"Fichas",name:"fichas"},
+            imp:{label:"Impreso",name:"temario impreso",icon:ICON_PRINT}};
+const matLabel=m=>MATS[m].icon?`${MATS[m].icon}<span class="sr">${MATS[m].label}</span>`:MATS[m].label;
 const ICON_GRIP=`<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="5.5" cy="3.5" r="1.4"/><circle cx="10.5" cy="3.5" r="1.4"/><circle cx="5.5" cy="8" r="1.4"/><circle cx="10.5" cy="8" r="1.4"/><circle cx="5.5" cy="12.5" r="1.4"/><circle cx="10.5" cy="12.5" r="1.4"/></svg>`;
-const ICON_MIX=`<svg class="i-mx" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M4 8h8"/></svg>`;
 
 function renderPanel(){
   const b=DATA.find(x=>x.id===ui.tab)||DATA[0];
@@ -1150,26 +1147,15 @@ function renderPanel(){
   panel.dataset.block=b.id;
   panel.setAttribute("aria-labelledby",`tab-${b.id}`);
   panel.innerHTML=`
-    <div class="p-head" data-roman="${b.roman}">
-      <div class="p-tag">Bloque ${b.roman} · ${b.temas.length} temas</div>
-      <h3 class="p-title">${b.title}</h3>
-      <div class="p-stats">
-        <div class="p-stat" data-k="a"><small>1ª lectura</small><b id="ps-a"></b><div class="mini"><i id="pm-a"></i></div></div>
-      </div>
-      <p class="p-mat" id="pmat"></p>
-      <p class="p-hint">${ICON_BM}<span>Pulsa el número de un tema para marcar por dónde vas en este bloque.</span></p>
-      <p class="p-hint">${ICON_GRIP}<span>Arrastra un tema por el asa para ordenar cómo vas a leerlo.</span><button type="button" class="p-reset" id="orderReset" data-reset-order hidden>Orden original</button></p>
-    </div>
     <div class="thead">
       <span aria-hidden="true"></span><span aria-hidden="true">#</span><span aria-hidden="true">Tema</span><span aria-hidden="true">1ª lectura</span>
-      <span class="th-all">Todo el bloque</span>
-      ${Object.entries(MATS).map(([m,x])=>`<button type="button" class="bt" data-blkmat="${m}" aria-pressed="false"><span class="box">${ICON_CHECK.replace("<svg ","<svg class=\"i-ck\" ")}${ICON_MIX}</span>${x.label}</button>`).join("")}
+      ${Object.keys(MATS).map(m=>`<span aria-hidden="true"${MATS[m].icon?` title="${MATS[m].label}"`:""}>${MATS[m].icon||MATS[m].label}</span>`).join("")}
     </div>
     <ul class="list">
       ${orderOf(b).map((n,pos)=>{
         const t=b.temas[n-1], id=`${b.id}-${n}`;
         const btn=k=>`<button type="button" class="tg" data-id="${id}" data-k="${k}" aria-pressed="false" aria-label="Tema ${n}: ${LABELS[k].join("")}"><span class="box">${ICON_CHECK}</span><span class="lb"><span class="lx">${LABELS[k][0]}</span><span class="lf">${LABELS[k][1]}</span></span></button>`;
-        const mat=m=>`<button type="button" class="tg" data-id="${id}" data-mat="${m}" aria-pressed="false" aria-label="Tema ${n}: ${MATS[m].name}" title="${MATS[m].name[0].toUpperCase()+MATS[m].name.slice(1)}"><span class="box">${ICON_CHECK}</span><span class="lb"><span class="lx">${MATS[m].label}</span></span></button>`;
+        const mat=m=>`<button type="button" class="tg" data-id="${id}" data-mat="${m}" aria-pressed="false" aria-label="Tema ${n}: ${MATS[m].name}" title="${MATS[m].name[0].toUpperCase()+MATS[m].name.slice(1)}"><span class="box">${ICON_CHECK}</span><span class="lb"><span class="lx">${matLabel(m)}</span></span></button>`;
         return `<li class="row" id="row-${id}" data-n="${n}" style="animation-delay:${pos*25}ms">
           <button type="button" class="grip" aria-label="Tema ${n}: mover. Usa las flechas arriba y abajo" title="Arrastrar para ordenar">${ICON_GRIP}</button>
           <button type="button" class="num" data-here="${id}" aria-pressed="false" aria-label="Tema ${n}: marcar por dónde vas" title="Marcar por dónde vas"><span class="n">${n}</span>${ICON_BM}</button>
@@ -1179,7 +1165,7 @@ function renderPanel(){
               <label class="hp" title="Página por la que vas en este tema">${ICON_BM}<span>Vas por la pág.</span><input type="number" inputmode="numeric" min="1" max="9999" step="1" placeholder="—" data-hp="${id}" aria-label="Tema ${n}: página por la que vas"><span class="hp-of"></span></label>
             </div>
             <div class="tstate"></div></div>
-          <div class="acts">${btn("a")}${mat("dig")}${mat("fch")}</div>
+          <div class="acts">${btn("a")}${Object.keys(MATS).map(mat).join("")}</div>
         </li>`;
       }).join("")}
     </ul>`;
@@ -1187,8 +1173,18 @@ function renderPanel(){
     const sel=t.dataset.tab===b.id;
     t.setAttribute("aria-selected",sel); t.tabIndex=sel?0:-1;
   });
+  placeCaret();
   update();
 }
+
+/* flecha bajo la tarjeta del bloque abierto, con su color */
+function placeCaret(){
+  const t=document.querySelector('.tab[aria-selected="true"]'), c=document.getElementById("tcaret"); if(!t||!c) return;
+  c.style.setProperty("--c",`var(--${t.dataset.tab}-ink)`);
+  c.style.top=(t.offsetTop+t.offsetHeight)+"px";
+  c.style.left=(t.offsetLeft+t.offsetWidth/2)+"px";
+}
+addEventListener("resize",placeCaret);
 
 /* ================= NÚMEROS ANIMADOS ================= */
 const reduced=()=>matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -1203,7 +1199,7 @@ function stateHTML(s,h){
   const out=[];
   if(h) out.push(`<span class="here-tag"><i style="background:var(--phase)"></i>Vas por aquí · desde el ${fmt(fromISO(h.since))}${h.pag?` · pág. ${h.pag} el ${fmt(fromISO(h.pd))}`:""}</span>`);
   if(!s.a) return out.length?out.join(""):`<span>Pendiente</span>`;
-  out.push(`<span><i style="background:var(--c-a)"></i>1ª${s.da?" · "+fmt(fromISO(s.da)):""}</span>`);
+  out.push(`<span><i style="background:var(--t-a)"></i>1ª${s.da?" · "+fmt(fromISO(s.da)):""}</span>`);
   return out.join("");
 }
 
@@ -1220,21 +1216,14 @@ function update(){
     const len=b.temas.length,c=count(k,b);
     const r=document.getElementById(`tr-${b.id}`); r.style.strokeDashoffset=r.dataset.c*(1-c/len);
     const h=here[b.id], tab=document.getElementById(`tab-${b.id}`);
-    document.getElementById(`tc-${b.id}`).innerHTML=`${c}/${len} leídos`+(h?`<span class="sr">, vas por el tema ${h.n}</span>`:"");
+    let pgT=0,pgA=0; b.temas.forEach((_,i)=>{ const s=get(`${b.id}-${i+1}`); if(s.pg){ pgT+=s.pg; if(s.a) pgA+=s.pg; } });
+    if(h&&h.pag){ const s=get(`${b.id}-${h.n}`); if(s.pg&&!s.a) pgA+=Math.min(h.pag,s.pg); }
+    document.getElementById(`tc-${b.id}`).innerHTML=`${c}/${len} leídos`+(pgT?` · ${nf(pgA)}/${nf(pgT)} págs`:"")+(h?`<span class="sr">, vas por el tema ${h.n}</span>`:"");
     tab.classList.toggle("has-here",!!h);
     tab.querySelector(".t-here-n").textContent=h?h.n:"";
   });
 
-  const b=DATA.find(x=>x.id===ui.tab)||DATA[0], len=b.temas.length;
-  ["a"].forEach(key=>{
-    const c=count(key,b);
-    document.getElementById(`ps-${key}`).textContent=`${c}/${len}`;
-    document.getElementById(`pm-${key}`).style.width=(c/len*100)+"%";
-  });
-  /* páginas del bloque (solo las anotadas) */
-  let pgT=0,pgA=0,pgN=0; b.temas.forEach((_,i)=>{ const s=get(`${b.id}-${i+1}`); if(s.pg){ pgN++; pgT+=s.pg; if(s.a) pgA+=s.pg; } });
-  const hb=here[b.id]; if(hb&&hb.pag){ const s=get(`${b.id}-${hb.n}`); if(s.pg&&!s.a) pgA+=Math.min(hb.pag,s.pg); }
-  document.getElementById("pmat").innerHTML=pgN?`<span><b>${nf(pgT)}</b> páginas${pgN<len?` en ${pgN} de ${len} temas`:""}</span><span><b>${nf(pgA)}</b> leídas en 1ª</span>`:"";
+  const b=DATA.find(x=>x.id===ui.tab)||DATA[0];
   b.temas.forEach((_,i)=>{
     const id=`${b.id}-${i+1}`, s=get(id), row=document.getElementById(`row-${id}`);
     const inp=row.querySelector("[data-pg]");
@@ -1251,14 +1240,8 @@ function update(){
     row.querySelector(".tstate").innerHTML=stateHTML(s,h);
     row.querySelectorAll(".tg").forEach(t=>{ const on=!!s[t.dataset.k||t.dataset.mat]; t.classList.toggle("on",on); t.setAttribute("aria-pressed",on); });
   });
-  /* marcar o desmarcar todo el bloque: marcado, a medias o sin marcar */
-  document.querySelectorAll("[data-blkmat]").forEach(bt=>{
-    const m=bt.dataset.blkmat, c=b.temas.filter((_,i)=>get(`${b.id}-${i+1}`)[m]).length;
-    bt.setAttribute("aria-pressed",c===len?"true":c?"mixed":"false");
-    bt.setAttribute("aria-label",`${MATS[m].name[0].toUpperCase()+MATS[m].name.slice(1)}: ${c} de ${len} temas. ${c===len?"Desmarcar":"Marcar"} todo el bloque`);
-    bt.title=`${c}/${len} · ${c===len?"Desmarcar":"Marcar"} todo el bloque`;
-  });
-  const rs=document.getElementById("orderReset"); if(rs) rs.hidden=!order[b.id];
+  const rs=document.getElementById("orderReset"); rs.hidden=!order[b.id]; rs.textContent=`Orden original del bloque ${b.roman}`;
+  placeCaret();
 }
 
 /* ================= EFECTOS ================= */
@@ -1274,8 +1257,8 @@ function burst(x,y,colors,n=18,spread=1){
   }
   if(!running){ running=true; requestAnimationFrame(tick); }
 }
-function confetti(){
-  for(let k=0;k<5;k++) setTimeout(()=>burst(innerWidth*(.15+.175*k),innerHeight*.35,THEME.confetti,40,2.2),k*90);
+function confetti(colors=THEME.confetti){
+  for(let k=0;k<5;k++) setTimeout(()=>burst(innerWidth*(.15+.175*k),innerHeight*.35,colors,40,2.2),k*90);
 }
 function tick(){
   cx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0);
@@ -1302,12 +1285,6 @@ document.addEventListener("click",e=>{
   const mt=e.target.closest("[data-mat]");
   if(mt){ const id=mt.dataset.id, m=mt.dataset.mat, s={...get(id)};
     s[m]=!s[m]; save(id,s); update(); return; }
-  const bm=e.target.closest("[data-blkmat]");
-  if(bm){ const m=bm.dataset.blkmat, blk=DATA.find(x=>x.id===ui.tab)||DATA[0], ids=blk.temas.map((_,i)=>`${blk.id}-${i+1}`);
-    const all=ids.every(id=>get(id)[m]);
-    ids.forEach(id=>{ const s={...get(id)}; s[m]=!all; save(id,s); });
-    update();
-    toast(`Bloque ${blk.roman}: ${m==="dig"?(all?"temario digital desmarcado":"temario digital marcado"):(all?"fichas desmarcadas":"fichas marcadas")} en todos los temas`); return; }
   if(e.target.closest("[data-reset-order]")){ const blk=DATA.find(x=>x.id===ui.tab)||DATA[0];
     delete order[blk.id]; store(ORDER_KEY,order); renderPanel(); toast(`Bloque ${blk.roman}: orden original`); return; }
   const cn=e.target.closest("[data-cancel]"); if(cn){ closeDL(cn.dataset.cancel); return; }
@@ -1332,11 +1309,11 @@ document.addEventListener("click",e=>{
     if(cascade) toast(`Tema ${id.split("-")[1]}: quitada también la 2ª lectura`);
     if(s[k]){
       const r=t.getBoundingClientRect();
-      burst(r.left+r.width/2,r.top+r.height/2,THEME[k]);
+      burst(r.left+r.width/2,r.top+r.height/2,BLK_FX[blk.id]||THEME[k]);
       const name=k==="r"?"resúmenes":PHASES.find(p=>p.k===k).name;
       if(cleared) toast(`Bloque ${blk.roman}, tema ${id.split("-")[1]} leído: marca de "vas por aquí" quitada`);
       if(count(k)===TOTAL&&before.all<TOTAL){confetti();toast(k==="r"?"Todos los resúmenes hechos":`${name} del temario completa`);}
-      else if(count(k,blk)===len&&before.blk<len){confetti();toast(`Bloque ${blk.roman}: ${name} ${k==="r"?"completos":"completa"}`);}
+      else if(count(k,blk)===len&&before.blk<len){confetti(BLK_FX[blk.id]);toast(`Bloque ${blk.roman}: ${name} ${k==="r"?"completos":"completa"}`);}
     }
     return;
   }
