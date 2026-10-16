@@ -218,6 +218,8 @@
   /* ================= TEMARIO DIGITAL Y FICHAS ================= */
   /* columnas de material: mismo check que la lectura, con el color del bloque */
   .panel .tg[data-k="a"]{--t:var(--t-a);--on:var(--on-blk)}
+  .tg[data-step="mic"]{--t:var(--t-mic);--on:var(--on-blk)}
+  .tg[data-step="tut"]{--t:var(--t-tut);--on:var(--on-blk)}
   .tg[data-mat="dig"]{--t:var(--t-dig);--on:var(--on-blk)}
   .tg[data-mat="fch"]{--t:var(--t-fch);--on:var(--on-blk)}
   .tg[data-mat="imp"]{--t:var(--t-imp);--on:var(--blk-ink)}
@@ -257,6 +259,11 @@
     .widgets{grid-template-columns:1fr}
     .tabs{grid-template-columns:repeat(2,1fr)}
     .today .long{display:none}
+  }
+  @media (max-width:899px){
+    .row{flex-wrap:wrap;align-items:flex-start}
+    .ttext{flex:1 1 calc(100% - 92px);padding-top:6px}
+    .acts{margin-left:38px;flex-wrap:wrap;flex:1 1 auto;min-width:0}
   }
   @media (max-width:640px){
     .nav-in{gap:8px;padding:10px 16px}
@@ -514,11 +521,13 @@
   .tab[data-tab="b4"],.panel[data-block="b4"]{--blk:var(--b4);--blk-soft:var(--b4-soft);--blk-ink:var(--b4-ink);
     --pat:radial-gradient(circle,transparent 2.6px,var(--pat-c) 3px,var(--pat-c) 3.8px,transparent 4.2px) 0 0/16px 16px}
   .tab,.panel{--pat-c:color-mix(in srgb,var(--blk-ink) var(--pat-a),transparent);--blk-line:color-mix(in srgb,var(--blk-ink) var(--blk-line-a,32%),transparent)}
-  /* tonos del bloque, de más a menos intenso: 1ª lectura → digital → fichas → impreso.
+  /* tonos del bloque, de más a menos intenso: 1ª lectura → microlección → tutoría → digital → fichas → impreso.
      Todo lo marcado dentro de un bloque (checks, filas leídas, "vas por aquí", barras) sale de su color. */
   .tab,.panel{
     --phase:var(--blk);
     --t-a:color-mix(in srgb,var(--blk-ink) 72%,var(--text));
+    --t-mic:var(--blk-ink);
+    --t-tut:color-mix(in srgb,var(--blk-ink) 75%,var(--blk));
     --t-dig:color-mix(in srgb,var(--blk-ink) 50%,var(--blk));
     --t-fch:var(--blk);
     --t-imp:color-mix(in srgb,var(--blk) 42%,var(--surface));
@@ -549,8 +558,11 @@
   @media (max-width:900px){ .tcaret{display:none} }
 
   /* checklist en tabla */
-  @media (min-width:760px){
-    .thead{display:grid;grid-template-columns:24px 40px minmax(0,1fr) 96px repeat(3,84px);gap:12px;padding:8px 20px 8px 12px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);border-bottom:1px solid var(--border);position:sticky;top:61px;z-index:5}
+  /* columnas: asa, nº, tema, 1ª lectura, microlección, tutoría, digital, fichas, impreso */
+  .panel{--cols:24px 40px minmax(0,1fr) 80px 96px 76px repeat(3,64px);--cgap:10px}
+  @media (min-width:1060px){ .panel{--cols:24px 40px minmax(0,1fr) 96px 112px 88px repeat(3,84px);--cgap:12px} }
+  @media (min-width:900px){
+    .thead{display:grid;grid-template-columns:var(--cols);gap:var(--cgap);padding:8px 20px 8px 12px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--surface-2);border-bottom:1px solid var(--border);position:sticky;top:61px;z-index:5}
     /* cabecera con el color del bloque: separa bien la tabla de la cabecera del panel */
     .panel .thead{background:color-mix(in srgb,var(--blk) 24%,var(--surface));color:var(--blk-ink);
       border-bottom:2px solid var(--blk-ink);padding-top:11px;padding-bottom:11px;font-size:12.5px;font-weight:800}
@@ -558,7 +570,7 @@
     /* columnas de check: título centrado sobre su casilla */
     .thead>span:nth-child(n+4){display:flex;align-items:center;justify-content:center;text-align:center}
     .list{padding:0}
-    .row{display:grid;grid-template-columns:24px 40px minmax(0,1fr) 96px repeat(3,84px);gap:12px;padding:12px 20px 12px 12px;border-radius:0}
+    .row{display:grid;grid-template-columns:var(--cols);gap:var(--cgap);padding:12px 20px 12px 12px;border-radius:0}
     .row.dragging{border-radius:var(--r-sm)}
     .acts{display:contents}
     .tg{justify-content:center;border:0;background:transparent;height:44px;padding:0;border-radius:var(--r-sm)}
@@ -738,9 +750,10 @@ const n1=x=>x.toFixed(1).replace(".",",").replace(",0","");
 
 /* ================= ESTADO =================
    state[id] = { a:bool 1ª lectura, b:bool 2ª lectura, r:bool resumen, da, db, dr: fechas,
-                 pg: nº de páginas (entero o null), dig: tengo el temario digital, fch: tengo fichas, imp: lo tengo impreso } */
-const EMPTY={a:false,b:false,r:false,da:null,db:null,dr:null,pg:null,dig:false,fch:false,imp:false};
-const isEmpty=s=>!s.a&&!s.b&&!s.r&&!s.pg&&!s.dig&&!s.fch&&!s.imp;
+                 pg: nº de páginas (entero o null), mic/dmic: microlección y su fecha, tut/dtut: tutoría y su fecha,
+                 dig: tengo el temario digital, fch: tengo fichas, imp: lo tengo impreso } */
+const EMPTY={a:false,b:false,r:false,da:null,db:null,dr:null,pg:null,mic:false,dmic:null,tut:false,dtut:null,dig:false,fch:false,imp:false};
+const isEmpty=s=>!s.a&&!s.b&&!s.r&&!s.pg&&!s.mic&&!s.tut&&!s.dig&&!s.fch&&!s.imp;
 const toPages=v=>{ const n=Math.round(Number(v)); return Number.isFinite(n)&&n>0&&n<=9999?n:null; };
 function normalize(raw){
   const out={};
@@ -748,7 +761,7 @@ function normalize(raw){
   for(const [id,v] of Object.entries(raw)){
     let s={...EMPTY};
     if(typeof v==="number"){ s.a=v>=1; s.b=v>=2; s.r=v>=3; }
-    else if(v && typeof v==="object" && ["a","b","r","pg","dig","fch","imp"].some(k=>k in v)){ Object.assign(s,v); }
+    else if(v && typeof v==="object" && ["a","b","r","pg","mic","tut","dig","fch","imp"].some(k=>k in v)){ Object.assign(s,v); }
     else if(v && typeof v==="object"){
       const l=v.l||0, d=Array.isArray(v.d)?v.d:[];
       s.a=l>=1; s.b=l>=2; s.da=d[0]||null; s.db=d[1]||null;
@@ -756,7 +769,8 @@ function normalize(raw){
     }
     /* solo booleanos y fechas AAAA-MM-DD; la 2ª lectura es del resumen, así que lo implica */
     s={a:!!s.a,b:!!s.b,r:!!s.r||!!s.b,da:isISO(s.da)?s.da:null,db:isISO(s.db)?s.db:null,dr:isISO(s.dr)?s.dr:null,
-       pg:toPages(s.pg),dig:!!s.dig,fch:!!s.fch,imp:!!s.imp};
+       pg:toPages(s.pg),mic:!!s.mic,dmic:s.mic&&isISO(s.dmic)?s.dmic:null,tut:!!s.tut,dtut:s.tut&&isISO(s.dtut)?s.dtut:null,
+       dig:!!s.dig,fch:!!s.fch,imp:!!s.imp};
     if(!isEmpty(s)) out[id]=s;
   }
   return out;
@@ -1133,6 +1147,9 @@ function renderTabs(){
 
 const ICON_CHECK=`<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 8.5l3 3 6-7"/></svg>`;
 const LABELS={a:["1ª"," lectura"]};
+/* pasos de estudio tras la 1ª lectura: se marcan con fecha, como la lectura, pero no cuentan en el plazo */
+const STEPS={mic:{label:"Microlección",head:"Micro&shy;lección",name:"microlección",plural:"microlecciones"},
+             tut:{label:"Tutoría",head:"Tutoría",name:"tutoría",plural:"tutorías"}};
 const ICON_PRINT=`<svg class="ico-print" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 9V3.5h10V9"/><path d="M7 17H5.5a2 2 0 0 1-2-2v-4a2 2 0 0 1 2-2h13a2 2 0 0 1 2 2v4a2 2 0 0 1-2 2H17"/><path d="M7 14h10v6.5H7z"/><path d="M17 12h.01"/></svg>`;
 /* material de cada tema. icon: se muestra en lugar del texto (el texto queda para lectores de pantalla) */
 const MATS={dig:{label:"Digital",name:"temario digital"},
@@ -1149,12 +1166,14 @@ function renderPanel(){
   panel.innerHTML=`
     <div class="thead">
       <span aria-hidden="true"></span><span aria-hidden="true">#</span><span aria-hidden="true">Tema</span><span aria-hidden="true">1ª lectura</span>
+      ${Object.keys(STEPS).map(k=>`<span aria-hidden="true">${STEPS[k].head}</span>`).join("")}
       ${Object.keys(MATS).map(m=>`<span aria-hidden="true"${MATS[m].icon?` title="${MATS[m].label}"`:""}>${MATS[m].icon||MATS[m].label}</span>`).join("")}
     </div>
     <ul class="list">
       ${orderOf(b).map((n,pos)=>{
         const t=b.temas[n-1], id=`${b.id}-${n}`;
         const btn=k=>`<button type="button" class="tg" data-id="${id}" data-k="${k}" aria-pressed="false" aria-label="Tema ${n}: ${LABELS[k].join("")}"><span class="box">${ICON_CHECK}</span><span class="lb"><span class="lx">${LABELS[k][0]}</span><span class="lf">${LABELS[k][1]}</span></span></button>`;
+        const step=k=>`<button type="button" class="tg" data-id="${id}" data-step="${k}" aria-pressed="false" aria-label="Tema ${n}: ${STEPS[k].name}"><span class="box">${ICON_CHECK}</span><span class="lb"><span class="lx">${STEPS[k].label}</span></span></button>`;
         const mat=m=>`<button type="button" class="tg" data-id="${id}" data-mat="${m}" aria-pressed="false" aria-label="Tema ${n}: ${MATS[m].name}" title="${MATS[m].name[0].toUpperCase()+MATS[m].name.slice(1)}"><span class="box">${ICON_CHECK}</span><span class="lb"><span class="lx">${matLabel(m)}</span></span></button>`;
         return `<li class="row" id="row-${id}" data-n="${n}" style="animation-delay:${pos*25}ms">
           <button type="button" class="grip" aria-label="Tema ${n}: mover. Usa las flechas arriba y abajo" title="Arrastrar para ordenar">${ICON_GRIP}</button>
@@ -1165,7 +1184,7 @@ function renderPanel(){
               <label class="hp" title="Página por la que vas en este tema">${ICON_BM}<span>Vas por la pág.</span><input type="number" inputmode="numeric" min="1" max="9999" step="1" placeholder="—" data-hp="${id}" aria-label="Tema ${n}: página por la que vas"><span class="hp-of"></span></label>
             </div>
             <div class="tstate"></div></div>
-          <div class="acts">${btn("a")}${Object.keys(MATS).map(mat).join("")}</div>
+          <div class="acts">${btn("a")}${Object.keys(STEPS).map(step).join("")}${Object.keys(MATS).map(mat).join("")}</div>
         </li>`;
       }).join("")}
     </ul>`;
@@ -1198,9 +1217,9 @@ function countTo(el,to){
 function stateHTML(s,h){
   const out=[];
   if(h) out.push(`<span class="here-tag"><i style="background:var(--phase)"></i>Vas por aquí · desde el ${fmt(fromISO(h.since))}${h.pag?` · pág. ${h.pag} el ${fmt(fromISO(h.pd))}`:""}</span>`);
-  if(!s.a) return out.length?out.join(""):`<span>Pendiente</span>`;
-  out.push(`<span><i style="background:var(--t-a)"></i>1ª${s.da?" · "+fmt(fromISO(s.da)):""}</span>`);
-  return out.join("");
+  if(s.a) out.push(`<span><i style="background:var(--t-a)"></i>1ª${s.da?" · "+fmt(fromISO(s.da)):""}</span>`);
+  Object.keys(STEPS).forEach(k=>{ if(s[k]) out.push(`<span><i style="background:var(--t-${k})"></i>${STEPS[k].label}${s["d"+k]?" · "+fmt(fromISO(s["d"+k])):""}</span>`); });
+  return out.length?out.join(""):`<span>Pendiente</span>`;
 }
 
 /* ================= UPDATE ================= */
@@ -1238,7 +1257,7 @@ function update(){
     nb.setAttribute("aria-label",`Tema ${i+1}: ${isHere?"quitar marca de por dónde vas":"marcar por dónde vas"}`);
     nb.title=isHere?"Quitar marca":"Marcar por dónde vas";
     row.querySelector(".tstate").innerHTML=stateHTML(s,h);
-    row.querySelectorAll(".tg").forEach(t=>{ const on=!!s[t.dataset.k||t.dataset.mat]; t.classList.toggle("on",on); t.setAttribute("aria-pressed",on); });
+    row.querySelectorAll(".tg").forEach(t=>{ const on=!!s[t.dataset.k||t.dataset.step||t.dataset.mat]; t.classList.toggle("on",on); t.setAttribute("aria-pressed",on); });
   });
   const rs=document.getElementById("orderReset"); rs.hidden=!order[b.id]; rs.textContent=`Orden original del bloque ${b.roman}`;
   placeCaret();
@@ -1282,6 +1301,13 @@ document.addEventListener("click",e=>{
   if(hb){ const id=hb.dataset.here, [bid,n]=id.split("-"), blk=DATA.find(b=>b.id===bid);
     const on=setHere(id);
     toast(on?`Bloque ${blk.roman}: vas por el tema ${n}`:`Bloque ${blk.roman}: marca quitada`); return; }
+  const st=e.target.closest("[data-step]");
+  if(st){ const id=st.dataset.id, k=st.dataset.step, s={...get(id)};
+    const blk=DATA.find(x=>id.startsWith(x.id+"-")), len=blk.temas.length, before=count(k,blk);
+    s[k]=!s[k]; s["d"+k]=s[k]?toISO(today()):null; save(id,s); update();
+    if(s[k]){ const r=st.getBoundingClientRect(); burst(r.left+r.width/2,r.top+r.height/2,BLK_FX[blk.id]||THEME.a);
+      if(count(k,blk)===len&&before<len){ confetti(BLK_FX[blk.id]); toast(`Bloque ${blk.roman}: ${STEPS[k].plural} completas`); } }
+    return; }
   const mt=e.target.closest("[data-mat]");
   if(mt){ const id=mt.dataset.id, m=mt.dataset.mat, s={...get(id)};
     s[m]=!s[m]; save(id,s); update(); return; }

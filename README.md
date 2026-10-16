@@ -9,8 +9,8 @@ Una sola página HTML, sin dependencias ni proceso de build. El progreso se guar
 ## Funcionalidades
 
 - **Índice de temas**: los títulos de los 33 temas de la convocatoria, agrupados en sus 4 bloques (Organización del Estado, Tecnología básica, Desarrollo de sistemas, Sistemas y comunicaciones), como lista sobre la que marcar el avance.
-- **Tabla de temas con cuatro columnas**: **1ª lectura**, **Temario digital**, **Fichas** e **Impreso** (icono de impresora). La 1ª lectura guarda la fecha en que se marcó y el tema leído se tiñe con el color del bloque. Digital, fichas e impreso solo se marcan o desmarcan.
-- **Colores por bloque**: dentro de cada bloque todo lo marcado usa tonos de su color (verde, naranja, rosa, violeta), de más a menos intenso: 1ª lectura, digital, fichas e impreso. También las filas leídas, el "vas por aquí", la barra de progreso, el anillo de su pestaña y el confeti.
+- **Tabla de temas con seis columnas**: **1ª lectura**, **Microlección**, **Tutoría**, **Temario digital**, **Fichas** e **Impreso** (icono de impresora). La 1ª lectura guarda la fecha en que se marcó y el tema leído se tiñe con el color del bloque. Microlección y tutoría también guardan su fecha (aparece bajo el título del tema), pero no cuentan en el plazo ni en el ritmo. Digital, fichas e impreso solo se marcan o desmarcan.
+- **Colores por bloque**: dentro de cada bloque todo lo marcado usa tonos de su color (verde, naranja, rosa, violeta), de más a menos intenso: 1ª lectura, microlección, tutoría, digital, fichas e impreso. También las filas leídas, el "vas por aquí", la barra de progreso, el anillo de su pestaña y el confeti.
 - **Orden de lectura**: cada tema se arrastra por su asa (⋮⋮) para colocarlo donde quieras dentro de su bloque; funciona con ratón y en pantallas táctiles. Con el asa enfocada, las flechas arriba y abajo lo mueven una posición. El orden se guarda por bloque y los temas conservan su número oficial y su progreso. Si el bloque abierto tiene un orden propio, junto al título "Bloques" aparece "Orden original del bloque…", que lo deshace.
 - **Páginas de cada tema**, bajo su título (se guardan al pulsar Intro o salir del campo). La tarjeta de cada bloque suma las páginas leídas en 1ª lectura frente a las anotadas.
 - **Plazo de la 1ª lectura**, a todo el ancho:
@@ -23,7 +23,7 @@ Una sola página HTML, sin dependencias ni proceso de build. El progreso se guar
 - **Enlaces** a INAP (proceso selectivo) y THEA, centrados en la barra superior.
 - **Varias pestañas**: si la app está abierta en dos pestañas, los cambios de una se reflejan en la otra.
 - **Modo claro / oscuro**: sigue al sistema por defecto; el botón de la barra superior fija uno u otro.
-- **Responsive**: tabla con columnas en escritorio, filas apiladas en móvil.
+- **Responsive**: tabla con columnas a partir de 900 px de ancho (más compactas por debajo de 1060 px); por debajo, filas apiladas con las casillas bajo el título.
 - **Accesibilidad**: pestañas navegables con flechas, `aria-pressed` en los checks, orden de temas con teclado, foco visible, textos alternativos en barras de progreso y respeto de `prefers-reduced-motion`.
 
 ## Uso
@@ -50,7 +50,7 @@ Todo se edita dentro del `<script>` de `index.html`.
 | Fecha límite por defecto | constante `PHASES` (`deadline` en formato `AAAA-MM-DD`) |
 | Ritmo del plan por defecto | constante `PPD` (20 págs/día) |
 | Color de la 1ª lectura (panel de plazo) | variable CSS `--c-a` en `:root` (y su equivalente en modo oscuro) |
-| Color de cada bloque | variables CSS `--b1`…`--b4` (base), `--bN-ink` y `--bN-soft`; los tonos de cada columna salen de ellas (`--t-a`, `--t-dig`, `--t-fch`, `--t-imp`). Confeti del bloque en la constante `BLK_FX` |
+| Color de cada bloque | variables CSS `--b1`…`--b4` (base), `--bN-ink` y `--bN-soft`; los tonos de cada columna salen de ellas (`--t-a`, `--t-mic`, `--t-tut`, `--t-dig`, `--t-fch`, `--t-imp`). Confeti del bloque en la constante `BLK_FX` |
 | Degradados y confeti | constante `THEME` |
 
 La fecha límite y el ritmo guardados desde la interfaz tienen prioridad sobre `PHASES` y `PPD`.
@@ -72,7 +72,7 @@ No hay backend. Todo se guarda en `localStorage`, por lo que el progreso es prop
 
 | Clave | Contenido |
 | --- | --- |
-| `tai2026-progress-v1` | Estado de cada tema: 1ª lectura con su fecha (`a` / `da`), páginas (`pg`), temario digital (`dig`), fichas (`fch`) e impreso (`imp`). Los campos de 2ª lectura y resumen (`b`, `r`, `db`, `dr`) de versiones anteriores se conservan, pero ya no se muestran |
+| `tai2026-progress-v1` | Estado de cada tema: 1ª lectura con su fecha (`a` / `da`), páginas (`pg`), microlección con su fecha (`mic` / `dmic`), tutoría con su fecha (`tut` / `dtut`), temario digital (`dig`), fichas (`fch`) e impreso (`imp`). Los campos de 2ª lectura y resumen (`b`, `r`, `db`, `dr`) de versiones anteriores se conservan, pero ya no se muestran |
 | `tai2026-deadlines` | Fecha límite editada (`{ a }`) |
 | `tai2026-pace` | Ritmo del plan en págs/día (`{ a }`) |
 | `tai2026-order` | Orden de lectura personalizado por bloque, con los números oficiales de los temas (`{ b4: [7, 1, 2, …] }`). Un bloque sin entrada usa el orden oficial |
